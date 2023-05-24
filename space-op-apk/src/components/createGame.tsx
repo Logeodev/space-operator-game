@@ -4,7 +4,7 @@ import styles from './style';
 import { Link } from 'react-router-native';
 import { useAppSelector } from '../reducers/store';
 import { generateGameID } from './UID';
-import { handleCreateGame, handleStartGame } from '../api/createGame';
+import { handleCreateGame, handleKillGame, handleStartGame } from '../api/createGame';
 
 const CreateGameScreen = () => {
     const gameId = generateGameID();
@@ -32,7 +32,7 @@ const CreateGameScreen = () => {
             </View>
             
             <View style={styles.btnSecondary}>
-                <Link to='/'><Text>Retour</Text></Link>
+                <Link to='/' onPress={() => handleKillGame(gameId)}><Text>Retour</Text></Link>
             </View>
         </View>
     );

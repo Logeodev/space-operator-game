@@ -14,7 +14,7 @@ app.get('/', (req: Request, res: Response) => {
 
 // API ---------------------------------------------------
 
-const gameInstances: Game[] = [];
+let gameInstances: Game[] = [];
 
 app.post('/api/game/create/:id', (req: Request, res: Response) => {
   const { id } = req.params
@@ -27,7 +27,11 @@ app.post('/api/game/create/:id', (req: Request, res: Response) => {
       pseudo: creatorPlayer.pseudo
     }]
   })
-  console.log(gameInstances)
+});
+
+app.delete('/api/game/kill/:id', (req:Request, res:Response) => {
+  const {id} = req.params;
+  gameInstances = gameInstances.filter(g => g.gameId !== id);
 });
 
 app.post('/api/join/:gameId', (req: Request, res: Response) => {
@@ -37,6 +41,9 @@ app.post('/api/join/:gameId', (req: Request, res: Response) => {
   }
   else {
     const { pseudo, playerId } = req.body
+    gameInstances.find(g => g.gameId === gameId)
+      ?.players
+      .push({pseudo:pseudo, id:playerId, connectionId:""})
     res.json({ success: true, message: 'Vous avez rejoins la partie' })
     gameInstances.forEach(e => console.log(e.players))
   }

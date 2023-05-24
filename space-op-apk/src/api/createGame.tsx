@@ -14,3 +14,8 @@ export const handleCreateGame = (gameId:string, player:Player) => {
 export const handleStartGame = () => {
     return axios.post(connString)
 }
+
+export const handleKillGame = (gameId:string) => {
+    return axios.delete(`${connString}/game/kill/${gameId}`)
+        .catch(e => console.log(e))
+}
