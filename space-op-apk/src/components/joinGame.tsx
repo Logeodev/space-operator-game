@@ -11,7 +11,9 @@ const JoinGameScreen = () => {
     const {pseudo, id} = useAppSelector(state => state.user)
 
     return <View style={styles.container}>
-        <Text style={styles.title}>Rejoindre un partie</Text>
+        <Text style={styles.label}>Votre pseudo : {pseudo}</Text>
+
+        <Text style={styles.title}>Rejoindre une partie</Text>
 
         <Text style={styles.label}>ID de la partie:</Text>
         <TextInput style={styles.textInput} placeholder="ID de partie" onChangeText={setGameId}/>
