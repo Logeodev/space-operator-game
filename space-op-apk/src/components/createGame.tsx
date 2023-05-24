@@ -17,7 +17,6 @@ const CreateGameScreen = () => {
 
             <View style={styles.playerList}>
                 <Text style={styles.text}>{currPseudo}</Text>
-                <Text>Le test</Text>
             </View>
 
             <View style={styles.btnPrimary}>
