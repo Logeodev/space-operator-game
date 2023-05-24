@@ -26,9 +26,9 @@ export const setId = (id:string) => ({
     payload: id
 });
 
-export const addDistantPlayer = () => ({
+export const addDistantPlayer = (pId:string) => ({
     type: 'NEW_PLAYER',
-    payload: ""
+    payload: pId
 })
 
 export default gameReducer;

@@ -1,10 +1,14 @@
-import { Text, TextInput, View } from "react-native"
+import { Text, TextInput, TouchableOpacity, View } from "react-native"
 import styles from "./style"
 import { useState } from "react"
 import { Link } from "react-router-native"
+import { useAppSelector } from "../reducers/store"
+import handleJoinGame from "../api/joinGame"
+
 
 const JoinGameScreen = () => {
     const [gameId, setGameId] = useState("")
+    const {pseudo, id} = useAppSelector(state => state.user)
 
     return <View style={styles.container}>
         <Text style={styles.title}>Rejoindre un partie</Text>
@@ -13,7 +17,9 @@ const JoinGameScreen = () => {
         <TextInput style={styles.textInput} placeholder="ID de partie" onChangeText={setGameId}/>
 
         <View style={styles.btnPrimary}>
-            <Link to=""><Text>Rejoindre</Text></Link>
+            <TouchableOpacity onPress={()=>handleJoinGame(gameId, pseudo, id)}>
+                <Text>Rejoindre</Text>
+            </TouchableOpacity>
         </View>
 
         <View style={styles.btnSecondary}>
