@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import styles from './style';
-import generateUniqueID from './UID';
 import { Link } from 'react-router-native';
 import { useAppSelector } from '../reducers/store';
+import { generateGameID } from './UID';
 
 const CreateGameScreen = () => {
-    const gameId = generateUniqueID();
+    const gameId = generateGameID();
     const currPseudo = useAppSelector((state) => state.user.pseudo)
     return (
         <View style={styles.container}>
