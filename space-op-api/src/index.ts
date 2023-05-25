@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import { WebSocketServer } from 'ws';
+import gameRoutes from './gameRoutes';
 import { Game } from './models/game';
 
 const app = express();
@@ -51,3 +53,26 @@ app.post('/api/join/:gameId', (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+const wss = new WebSocketServer({ clientTracking: false, noServer: true });
+
+wss.on('connection', (socket, req) => {
+  const playerId = req.headers['playerId'];
+  const gameId = req.headers['gameId']
+
+  if (typeof playerId === 'string') {
+    try {
+
+    } catch (e: any) {
+      console.log('Unauthorized token');
+      socket.send('Unauthorized token');
+      socket.close();
+    }
+  } else {
+    socket.send('Unauthorized token');
+    socket.close();
+  }
+});
+
+
