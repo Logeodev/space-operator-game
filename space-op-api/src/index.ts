@@ -23,9 +23,10 @@ app.listen(port, () => {
 const wss = new WebSocketServer({ clientTracking: false, noServer: true });
 
 wss.on('connection', (socket, req) => {
-  const playerID = req.headers['playerID'];
+  const playerId = req.headers['playerId'];
+  const gameId = req.headers['gameId']
 
-  if (typeof playerID === 'string') {
+  if (typeof playerId === 'string') {
     try {
 
     } catch (e: any) {
@@ -38,3 +39,5 @@ wss.on('connection', (socket, req) => {
     socket.close();
   }
 });
+
+
