@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import { WebSocketServer } from 'ws';
 import gameRoutes from './gameRoutes';
 
 const app = express();
@@ -16,4 +17,24 @@ app.get('/api', gameRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+});
+
+
+const wss = new WebSocketServer({ clientTracking: false, noServer: true });
+
+wss.on('connection', (socket, req) => {
+  const playerID = req.headers['playerID'];
+
+  if (typeof playerID === 'string') {
+    try {
+
+    } catch (e: any) {
+      console.log('Unauthorized token');
+      socket.send('Unauthorized token');
+      socket.close();
+    }
+  } else {
+    socket.send('Unauthorized token');
+    socket.close();
+  }
 });
