@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native';
 
 const colors = {
   primary:'#7abdc5',
-  secondary:'#b5cee2'
+  secondary:'#b5cee2',
+  lightBg:'#f4faff',
+  darkBG:'#d9d9d9'
 }
 
 const styles = StyleSheet.create({
@@ -11,7 +13,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f4faff'
+    backgroundColor: colors.lightBg
   },
   title: {
     fontSize: 24,
@@ -45,8 +47,11 @@ const styles = StyleSheet.create({
     borderRadius: 2
   },
   playerList: {
-    backgroundColor:'#8f8f8f',
-    height:100
+    backgroundColor:colors.darkBG,
+    borderRadius:2,
+    padding:5,
+    minWidth:100,
+    alignItems:'center'
   }
 });
 
