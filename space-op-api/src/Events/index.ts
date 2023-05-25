@@ -4,8 +4,8 @@ interface Event<T> {
   data: T
 }
 
-export type nouvellePartie = { playerId: number };
-export type rejoindrePartie = { gameId: number, playerId: number };
+// export type Partie = { playerId: number };
+export type Partie = { gameId: number, playerId: number };
 
 type Listener<T> = (data: T) => void;
 

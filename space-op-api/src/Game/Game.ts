@@ -13,4 +13,12 @@ export class Game {
    getGameId () {
     return this.gameId
    }
+
+   getPLayers () {
+    return this.players
+   }
+
+   addPlayer (player: Player) {
+    this.players.push(player)
+   }
 }

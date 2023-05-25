@@ -9,5 +9,13 @@ export class Player {
     this.pseudo = pseudo
    }
 
+   getId () {
+    return this.id
+   }
+
+   getPseudo () {
+    this.getPseudo
+   }
+
 
 }
