@@ -21,9 +21,7 @@ export class Player {
    }
 
    public setSocket(socket : WebSocket){
-      if(!this.socket){
-         this.socket = socket
-      }
+      this.socket = socket
    }
 
    public getSocket() {

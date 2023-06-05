@@ -56,53 +56,49 @@ app.delete('/api/game/kill/:id', (req:Request, res:Response) => {
 
 app.post('/api/join/:gameId', (req: Request, res: Response) => {
   const { gameId } = req.params;
-  if (gameInstances.find(game => game.getGameId() === gameId) == undefined) {
+  const game : Game | undefined = gameInstances.find(g => g.getGameId() === gameId)
+
+  if (!game) {
     res.status(404).json({ message: 'Partie introuvable' })
   }
-  else {
+  else if(game != undefined) {
     const { pseudo, playerId } = req.body
     const player :Player = new Player(pseudo, playerId)
 
-    if(gameInstances.find(g => g.getGameId() === gameId)
-    ?.getPlayers().find(p => p.getId() === playerId)){
+    if(game.getPlayers().find(p => p.getId() === playerId)){
       res.status(208).json({ success: true, message: 'Vous êtes déjà dans la partie' })
-    }else {
-      gameInstances.find(g => g.getGameId() === gameId)
-      ?.getPlayers()
-      .push(player)
+    } else {
+      game.addPlayer(player)
+
+      game.broadcastPlayers({
+        type : "players",
+        data :  {
+          players: game.getPlayersStatus()
+        }
+      })
       res.status(200).json({ success: true, message: 'Vous avez rejoins la partie' })
     }
   }
-  const game : Game | undefined = gameInstances.find(g => g.getGameId() === gameId)
-  if(game != undefined){
-    game.broadcastNewPlayer({
-      type : "players",
-      data :  {
-        players: game.getPlayersStatus()
-      }
-  })
-  }
-})
 
+})
 
 wss.on('connection', (socket, req) => {
   const playerId = req.headers['playerid'];
   const gameId = req.headers['gameid']
-  socket.send(JSON.stringify({ message: "hello" }))
 
   if ((typeof playerId === 'string') && typeof gameId === 'string') {
     try {
-      const p : any = gameInstances.find(g => g.getGameId() === gameId)?.getPlayers().find(p => p.getId() === playerId)
-      if(p != undefined){
-        p.setSocket(socket)
-        p.getSocket().send(JSON.stringify({message: "connected"}))
+      const player : any = gameInstances.find(g => g.getGameId() === gameId)?.getPlayers().find(p => p.getId() === playerId)
+      if(player != undefined){
+        player.setSocket(socket)
+        player.getSocket().send(JSON.stringify({message: "connected"}))
       }
     } catch (e: any) {
-      socket.send('Unauthorized token');
+      socket.send('500 Internal Probleme');
       socket.close();
     }
   } else {
-    socket.send('Unauthorized token');
+    socket.send('300 Bad Request');
     socket.close();
   }
 });

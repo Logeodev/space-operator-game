@@ -34,7 +34,7 @@ export class Game {
     this.players.push(player)
    }
 
-   broadcastNewPlayer = (event: players) => {
+   broadcastPlayers = (event: players) => {
     this.players &&
     this.players.forEach(p =>
       p.getSocket()?.send(JSON.stringify(event))
