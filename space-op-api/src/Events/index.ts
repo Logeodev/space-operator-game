@@ -1,13 +1,14 @@
 
-interface Event<T> {
-  key: string,
-  data: T
+export interface GameStartEvent<P> {
+  data: P
 }
 
-// export type Partie = { playerId: number };
-export type Partie = { gameId: number, playerId: number };
 
-type Listener<T> = (data: T) => void;
+
+// export type Partie = { playerId: number };
+export type RejoindrePartie = { gameId: number, playerId: number};
+
+export type Listener<P> = (data: P) => void;
 
 export class EventManager {
   static instance: EventManager;
@@ -22,22 +23,21 @@ export class EventManager {
     return EventManager.instance;
   }
 
-  listeners: { [key: string]: Array<Listener<any>> } = {};
+  listeners: { [gameId: string]: Array<Listener<any>> } = {};
 
-  subscribe = <T>(key: string, listener: Listener<T>) => {
-    if (this.listeners[key])
-      this.listeners[key].push(listener);
+  subscribe = <T>(gameId: string, listener: Listener<T>) => {
+    if (this.listeners[gameId])
+      this.listeners[gameId].push(listener);
     else
-      this.listeners[key] = [listener];
+      this.listeners[gameId] = [listener];
   };
 
-  broadcast = <T>(event: Event<T>) => {
-    this.listeners[event.key] &&
-    this.listeners[event.key].forEach((listener: Listener<any>) =>
-      listener(event.data)
-    );
-  };
-
+  // broadcast = <T>(event: PlayerEvent<T>) => {
+  //   this.listeners[event.key.gameId] &&
+  //   this.listeners[event.key.gameId].forEach((listener: Listener<any>) =>
+  //     listener(event.data)
+  //   );
+  // };
 }
 
 export default EventManager.getInstance();

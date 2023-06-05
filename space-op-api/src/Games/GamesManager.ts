@@ -15,7 +15,6 @@ class GamesManager {
       return GamesManager.instance;
     }
 
-
 }
 
 export default GamesManager.getInstance()
