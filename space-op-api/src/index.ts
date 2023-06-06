@@ -92,6 +92,7 @@ wss.on('connection', (socket, req) => {
       if(player != undefined){
         player.setSocket(socket)
         player.getSocket().send(JSON.stringify({message: "connected"}))
+        player.getSocket().on('message', function(){console.log("hello")})
       }
     } catch (e: any) {
       socket.send('500 Internal Probleme');
@@ -102,3 +103,13 @@ wss.on('connection', (socket, req) => {
     socket.close();
   }
 });
+
+
+// const clientMessageEvent = function (event : any){
+//   if(typeof event.data === 'string'){
+//     const JsonObject = JSON.parse(event.data)
+//     const type = JsonObject.type
+//     console.log(type)
+//     console.log(JsonObject)
+//   }
+// }
