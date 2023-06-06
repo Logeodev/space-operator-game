@@ -6,10 +6,9 @@ export class Game {
    private gameId:string
    private players:Player [] = []
 
-   public constructor(id : string, host: Player) {
+   public constructor(id : string) {
     this.gameId = id
-    this.players.push(host)
-    
+    //this.players.push(host)
    }
 
    getGameId () {
@@ -32,6 +31,10 @@ export class Game {
 
    addPlayer (player: Player) {
     this.players.push(player)
+   }
+
+   isPlayerById(id : string) : boolean {
+      return this.players.findIndex((p : Player) => p.getId() === id) != -1
    }
 
    broadcastPlayers = (event: players) => {
