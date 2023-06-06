@@ -3,7 +3,7 @@ import { WebSocket, WebSocketServer } from 'ws';
 import { WssMessageHandlder } from '../Events';
 import { Player } from './Player';
 import { playersManager, gameInstances } from '..';
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { Game } from '../Game/Game';
 
 const playerRoutes = ( app : Express, wss : WebSocketServer) => {
