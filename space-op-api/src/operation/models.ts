@@ -170,7 +170,7 @@ export const operations = [
     OperationResult(randomResultButton([1, 2, 0, 3]), resultSwitch([]))
     ), 
 
-() => operationBuilder("Activer les switchs dont les chivvre romain son pair", 
+() => operationBuilder("Activer les switchs dont les chiffre romain son pair", 
 [
     switchElem(0, "string", "IV"),
     switchElem(1, "string", "XIX"),

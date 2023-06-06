@@ -1,43 +1,63 @@
+import { Player } from "../Player/Player"
+import { Game } from "../Game/Game"
+import { gameInstances } from ".."
+import { playersManager } from ".."
+import { playerJoin } from "./models"
+import { gameStart } from "./models"
 
-interface Event<T> {
-  key: string,
-  data: T
-}
+export const WssMessageHandlder = function (message : any) {
 
-// export type Partie = { playerId: number };
-export type Partie = { gameId: number, playerId: number };
+  const JsonObject = JSON.parse(message)
+  const type : string = JsonObject.type
 
-type Listener<T> = (data: T) => void;
-
-export class EventManager {
-  static instance: EventManager;
-
-  private constructor() {
+  if(type === "connect"){
+    joinGame(JsonObject)
   }
 
-  static getInstance() {
-    if (!EventManager.instance)
-      EventManager.instance = new EventManager();
-
-    return EventManager.instance;
+  if(type === "start"){
+    startGame(JsonObject)
   }
-
-  listeners: { [key: string]: Array<Listener<any>> } = {};
-
-  subscribe = <T>(key: string, listener: Listener<T>) => {
-    if (this.listeners[key])
-      this.listeners[key].push(listener);
-    else
-      this.listeners[key] = [listener];
-  };
-
-  broadcast = <T>(event: Event<T>) => {
-    this.listeners[event.key] &&
-    this.listeners[event.key].forEach((listener: Listener<any>) =>
-      listener(event.data)
-    );
-  };
-
 }
 
-export default EventManager.getInstance();
+export const joinGame = function(playerData : playerJoin){
+
+  const player : Player | undefined = playersManager.find((p : Player) => p.getId() === playerData.data.playerId)
+  const game : Game | undefined = gameInstances.find((g : Game) => g.getGameId() === playerData.data.gameId)
+  if(game && player){
+    player.setPseudo(playerData.data.playerName)
+    if(!game.isPlayerById(player.getId())){
+      player.setGameId(game.getGameId())
+      game.addPlayer(player)
+      game.broadcastPlayers({
+        type : "players",
+        data :  {
+          players: game.getPlayersStatus()
+        }
+      })
+    } else {
+      player.getSocket()?.send(JSON.stringify({
+        type : "error",
+        data: {
+          message: `Player :: ${playerData.data.playerName} already exist in the game`
+        }
+      }))
+    }
+  }else if(player) {
+    player.getSocket()?.send(JSON.stringify({
+      type : "error",
+      data: {
+        message: `Game ID :: ${playerData.data.gameId} doesn't exist`
+      }
+    }))
+  }
+}
+
+export const startGame = function(message : gameStart){
+  const game = gameInstances.find((g : Game) => g.getGameId() === message.data.gameId)  
+  if(game){
+    game.EventStartGame({
+      type: "start"
+    })
+  }
+}
+
