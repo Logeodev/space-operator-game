@@ -6,6 +6,7 @@ class GamesManager {
     private games: Game [] = []
 
     private constructor() {
+      this.games = []
     }
   
     static getInstance() {

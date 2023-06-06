@@ -1,3 +1,7 @@
+import { WebSocket } from "ws";
+import { playerJoin } from "../Player/models";
+import { joinGame } from "..";
+
 
 export interface GameStartEvent<P> {
   data: P
@@ -38,6 +42,19 @@ export class EventManager {
   //     listener(event.data)
   //   );
   // };
+}
+
+export const WssMessageHandlder = function (message : any) {
+
+  const JsonObject : playerJoin = JSON.parse(message)
+  const type = JsonObject.type
+  console.log(type)
+  switch(type){
+    case 'connect': 
+      joinGame(JsonObject)
+      console.log(JsonObject)
+  }
+
 }
 
 export default EventManager.getInstance();

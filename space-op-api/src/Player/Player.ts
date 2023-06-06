@@ -1,4 +1,4 @@
-
+import { WebSocket } from "ws"
 
 export class Player {
    private id:string
@@ -6,10 +6,25 @@ export class Player {
    private socket? : WebSocket
    private status : boolean
 
-   public constructor(pseudo:string, id : string) {
-    this.id = id
-    this.pseudo = pseudo
-    this.status = false
+   // public constructor(pseudo:string, id : string) {
+   //  this.id = id
+   //  this.pseudo = pseudo
+   //  this.status = false
+   // }
+
+   public constructor(socket : WebSocket, id : string){
+      this.socket = socket
+      this.status = false
+      this.pseudo = ""
+      this.id = id
+   }
+
+   public setPseudo(pseudo : string){
+      this.pseudo = pseudo
+   }
+
+   public setId(id : string){
+      this.id = id
    }
 
    public getId () {
