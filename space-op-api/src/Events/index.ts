@@ -1,60 +1,15 @@
-import { WebSocket } from "ws";
-import { playerJoin } from "../Player/models";
-import { joinGame } from "..";
-
-
-export interface GameStartEvent<P> {
-  data: P
-}
-
-
-
-// export type Partie = { playerId: number };
-export type RejoindrePartie = { gameId: number, playerId: number};
-
-export type Listener<P> = (data: P) => void;
-
-export class EventManager {
-  static instance: EventManager;
-
-  private constructor() {
-  }
-
-  static getInstance() {
-    if (!EventManager.instance)
-      EventManager.instance = new EventManager();
-
-    return EventManager.instance;
-  }
-
-  listeners: { [gameId: string]: Array<Listener<any>> } = {};
-
-  subscribe = <T>(gameId: string, listener: Listener<T>) => {
-    if (this.listeners[gameId])
-      this.listeners[gameId].push(listener);
-    else
-      this.listeners[gameId] = [listener];
-  };
-
-  // broadcast = <T>(event: PlayerEvent<T>) => {
-  //   this.listeners[event.key.gameId] &&
-  //   this.listeners[event.key.gameId].forEach((listener: Listener<any>) =>
-  //     listener(event.data)
-  //   );
-  // };
-}
+import { joinGame, startGame } from "..";
 
 export const WssMessageHandlder = function (message : any) {
 
-  const JsonObject : playerJoin = JSON.parse(message)
-  const type = JsonObject.type
-  console.log(type)
-  switch(type){
-    case 'connect': 
-      joinGame(JsonObject)
-      console.log(JsonObject)
+  const JsonObject = JSON.parse(message)
+  const type : string = JsonObject.type
+
+  if(type === "connect"){
+    joinGame(JsonObject)
   }
 
+  if(type === "start"){
+    startGame(JsonObject)
+  }
 }
-
-export default EventManager.getInstance();
