@@ -1,5 +1,6 @@
 import { Player } from "../Player/Player";
 import { playerStatus, playerOrNull, players } from "../Player/models";
+import { gameStartEvent } from "./models";
 
 
 export class Game {
@@ -44,10 +45,10 @@ export class Game {
     );
   };
 
-  EventStartGame = (event: players) => {
+  EventStartGame = (event: gameStartEvent) => {
    this.players &&
    this.players.forEach(p =>
-     p.getSocket()?.send(JSON.stringify(event.data))
+     p.getSocket()?.send(JSON.stringify(event))
    );
  };
 }

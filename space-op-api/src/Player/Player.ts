@@ -5,6 +5,7 @@ export class Player {
    private pseudo:string
    private socket? : WebSocket
    private status : boolean
+   private gameId : string
 
    // public constructor(pseudo:string, id : string) {
    //  this.id = id
@@ -17,6 +18,15 @@ export class Player {
       this.status = false
       this.pseudo = ""
       this.id = id
+      this.gameId = ""
+   }
+
+   public getGameId() : string{
+      return this.gameId
+   }
+
+   public setGameId(id : string){
+      this.gameId = id
    }
 
    public setPseudo(pseudo : string){
