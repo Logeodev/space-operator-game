@@ -6,8 +6,9 @@ interface Player {
     pseudo:string
 }
 
-export const handleCreateGame = (gameId:string, player:Player) => {
-    return axios.post(`${connString}/game/create/${gameId}`, player)
+export const handleCreateGame = (player:Player) => {
+    return axios.post(`${connString}/game/create`, player)
+        .then(res => res.data.message)
         .catch(e=>console.log(e))
 }
 

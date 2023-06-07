@@ -3,23 +3,17 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../utils/style';
 import { Link } from 'react-router-native';
 import { useAppSelector } from '../reducers/store';
-import { generateGameID } from '../utils/UID';
-import { handleCreateGame, handleKillGame, handleStartGame } from '../api/createGame';
+import { handleKillGame, handleStartGame } from '../api/createGame';
 
 const CreateGameScreen = () => {
-    const gameId = generateGameID();
-    const {pseudo, id} = useAppSelector((state) => state.user)
-
-    useEffect(() => {
-        handleCreateGame(gameId, {id:id, pseudo:pseudo})
-    }, [])
+    const pseudo = useAppSelector((state) => state.user.pseudo)
+    const gameId = useAppSelector(state => state.game.id)
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Créer une partie</Text>
 
-            <Text style={styles.label}>ID de la partie:</Text>
-            <Text style={styles.text}>{gameId}</Text>
+            <Text style={styles.label}>ID : {gameId}</Text>
 
             <View style={styles.playerList}>
                 <Text style={styles.text}>{pseudo}</Text>
