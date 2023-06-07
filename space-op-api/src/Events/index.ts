@@ -2,8 +2,9 @@ import { Player } from "../Player/Player"
 import { Game } from "../Game/Game"
 import { gameInstances } from ".."
 import { playersManager } from ".."
-import { playerJoin } from "./models"
-import { gameStart } from "./models"
+import { playerJoin, gameStart, operatorFinished } from "./models"
+import { missionControl } from "../Game/models"
+
 
 export const WssMessageHandlder = function (message: any) {
 
@@ -17,9 +18,14 @@ export const WssMessageHandlder = function (message: any) {
   if (type === "start") {
     startGame(JsonObject)
   }
+
+  if (type === "finish") {
+    operationFinished(JsonObject)
+  }
+
 }
 
-export const joinGame = function (playerData: playerJoin) {
+const joinGame = function (playerData: playerJoin) {
 
   const player: Player | undefined = playersManager.find((p: Player) => p.getId() === playerData.data.playerId)
   const game: Game | undefined = gameInstances.find((g: Game) => g.getGameId() === playerData.data.gameId)
@@ -52,12 +58,45 @@ export const joinGame = function (playerData: playerJoin) {
   }
 }
 
-export const startGame = function (message: gameStart) {
+const startGame = function (message: gameStart) {
   const game = gameInstances.find((g: Game) => g.getGameId() === message.data.gameId)
   if (game) {
     game.EventStartGame({
       type: "start"
     })
+    game.startRound()
+  }
+}
+
+const operationFinished = function (message: operatorFinished) {
+
+  const game = gameInstances.find((g: Game) =>
+    g.getMissionControl().find((mc: missionControl) => mc.instructorOperator.code === message.data.operator))
+
+  if (game) {
+    const missionControl = game.getMissionControl().find((mc: missionControl) => mc.instructorOperator.code === message.data.operator)
+
+    if (missionControl) {
+      missionControl.operationSucess = message.data.success
+      missionControl.isFinishedReceived = true
+
+      if(!message.data.success){
+        game.setIntegrity(game.getIntegrity() - 10)
+      } else{
+        game.setIntegrity(game.getIntegrity() + 5)
+      }
+
+      game.broadcastIntegrity({
+        type: "integrity",
+        data: {
+          integrity : game.getIntegrity()
+        }
+      })
+    }
+
+    if(game.isTurnOver()){
+      game.finishRound()
+    }
   }
 }
 

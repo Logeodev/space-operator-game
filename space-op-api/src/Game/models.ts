@@ -1,19 +1,32 @@
 import { InstructorOperator } from "../Round/Round";
 
-
 export interface missionControl {
-    isFinishedRecived : boolean,
+    isFinishedReceived : boolean,
     operationSucess?: boolean,
     instructorOperator : InstructorOperator
 }
 
 export const newMissionControl = (
-    isFinishedRecived : boolean,
+    isFinishedReceived : boolean,
     instructorOperator : InstructorOperator,
     operationSucess? : boolean
 
 ): missionControl => ({
-    isFinishedRecived,
+    isFinishedReceived,
     instructorOperator,
     operationSucess
 })
+
+export interface gameStatus {
+    type: "victory"|"destroyed",
+    data: {
+      turns?:number
+    }
+  }
+
+export interface EventIntegrity {
+    type: "integrity",
+    data: {
+        integrity: number
+    }
+}
