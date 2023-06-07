@@ -1,3 +1,6 @@
+import { Operation } from "../operation/models"
+import { Role } from "../Round/Round"
+
 export interface playerJoin {
     type: "connect",
     data: {
@@ -16,4 +19,15 @@ export interface gameStart {
     data: {
         gameId: string
     }
+}
+
+export interface operationEvent {
+  type: "operation",
+  data: {
+    turn: number,
+    role: Role 
+    id: string,
+    duration: number,
+    operation : Operation
+  }
 }

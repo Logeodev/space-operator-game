@@ -48,7 +48,7 @@ type value =  String | Number
 //
 //------------------------------------------------------------------------
 
-interface Operation {
+export interface Operation {
     elements: element [],
     descritpion: String,
     result: OperationResult
