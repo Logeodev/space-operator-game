@@ -43,7 +43,7 @@ const playerRoutes = (app: Express, wss: WebSocketServer) => {
     }
 
     if (player && !game) {
-      res.status(300).json({ message: 'Player is currently assign to a non existing game' })
+      res.status(300).json({ message: 'Player is currently assigned to a non existing game' })
     }
 
     if (game && player) {

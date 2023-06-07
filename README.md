@@ -1,4 +1,40 @@
+# Endpoints
+
+Un joueur est connecté à la socket dès l'écran principal.
+
+## Créer une partie
+
+Un joueur peut créer une partie _via_ l'endpoint `/api/game/create`.
+Cela génére en _backend_ un identifiant de partie, que le joueur doit communiquer aux autres participants.
+
+On reçoit :
+```json
+{
+    "message": "Partie crée : 565630"
+}
+``` 
+
+## Prêt au début de partie
+
+Un joueur indique (depuis l'écran d'attente de début de partie, une fois rejointe) qu'il est prêt à jouer _via_ l'endpoint `/api/game/ready/:idJoueur`.
+
+Il reçoit un message de socket :
+```json
+{
+    "type": "players",
+    "data": {
+        "players": [status des joueurs de la partie (prêt ou non)]
+    }
+}
+```
+
+## Couper l'instance de partie
+
+Il est possible de "tuer" une partie avec `/api/game/kill/:idPartie`.
+Notamment lorsqu'un hôte quitte sa partie créée ou en fin de partie.
+
 # Communication des sockets
+## Messages des sockets
 
 L'ensemble des communications se font _via_ des objets :
 ```json
@@ -11,7 +47,9 @@ L'ensemble des communications se font _via_ des objets :
 ```
 Le `type` indique de quel message il s'agit, qu'elle es l'action réalisée et donc comment traiter les `data`.
 
-## Connexion à une partie existante
+### Connexion à une partie existante
+
+Un joueur se connecte à une partie existante à l'aide d'un identifiant de partie que l'hôte lui communique.
 
 ```json
 {
@@ -24,7 +62,7 @@ Le `type` indique de quel message il s'agit, qu'elle es l'action réalisée et d
 }
 ```
 
-## Démarrer une partie
+### Démarrer une partie
 
 Un joueur envoie le message suivant pour déclarer que la partie indiquée peut commencer.
 Les joueurs connectés à cette partie et prêt veront alors la partie commencer.
@@ -38,7 +76,7 @@ Les joueurs connectés à cette partie et prêt veront alors la partie commencer
 }
 ```
 
-## Finir une opération
+### Finir une opération
 
 Un joueur opération ayant reçu une opération (un _set_ d'instructions) à réaliser que son instructeur lui communiquera, communiquera son échec (le _timer_ est dépassé ou l'opération n'a pas été bien réalisée) ou succès (il a correctement réaliser l'opération dans le temps impartit).
 
