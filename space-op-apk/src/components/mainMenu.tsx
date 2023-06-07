@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TextInput } from 'react-native';
-import styles from './style';
-import generateUniqueID from './UID';
+import styles from '../utils/style';
+import generateUniqueID from '../utils/UID';
 import { Link } from 'react-router-native';
 import { setId, setPseudo } from '../reducers/player';
 import { useAppDispatch, useAppSelector } from '../reducers/store';
@@ -11,12 +11,14 @@ const MainMenu = () => {
   const dispatch = useAppDispatch();
   const pseudo = useAppSelector(state => state.user.pseudo)
 
+  useEffect(() => {dispatch(setId(playerId))},[])
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Space Operator</Text>
 
       <Text style={styles.label}>Nom du joueur:</Text>
-      <TextInput style={styles.textInput} onChangeText={e => {dispatch(setPseudo(e)); dispatch(setId(playerId));}} placeholder='Pseudo' defaultValue={pseudo}/>
+      <TextInput style={styles.textInput} onChangeText={e => {dispatch(setPseudo(e));}} placeholder='Pseudo' defaultValue={pseudo}/>
 
       <Text style={styles.label}>ID du joueur:</Text>
       <Text style={styles.text}>{playerId}</Text>

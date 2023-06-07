@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import styles from './style';
+import styles from '../utils/style';
 import { Link } from 'react-router-native';
 import { useAppSelector } from '../reducers/store';
-import { generateGameID } from './UID';
+import { generateGameID } from '../utils/UID';
 import { handleCreateGame, handleKillGame, handleStartGame } from '../api/createGame';
 
 const CreateGameScreen = () => {

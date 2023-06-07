@@ -1,5 +1,5 @@
 import { Text, TextInput, TouchableOpacity, View } from "react-native"
-import styles from "./style"
+import styles from "../utils/style"
 import { useState } from "react"
 import { Link } from "react-router-native"
 import { useAppSelector } from "../reducers/store"
