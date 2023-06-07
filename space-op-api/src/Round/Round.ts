@@ -13,7 +13,6 @@ function generateOperationCode(): string {
     return `${randomLetter1}${randomLetter2}-${randomNumber1}${randomNumber2}`;
 }
 
-
 export enum Role {
     "Operator",
     "Instructor",
@@ -63,6 +62,10 @@ export class Round {
 
     getUserRole(pId : string):Role|undefined {
         return this.playersRoles.find(p => p.playerId === pId)?.role
+    }
+
+    getRoundTime() : number {
+        return 40 - this.roundNumber
     }
 
     chooseChosenOperations(): InstructorOperator[] {
