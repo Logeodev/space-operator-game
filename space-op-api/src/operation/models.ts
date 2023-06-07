@@ -125,7 +125,7 @@ export const operations = [
       switchElem(4, "number", 4),
       switchElem(5, "number", 3)
     ], 
-    OperationResult(randomResultButton([0, 0, 3, 3]), resultSwitch([0]))
+    OperationResult(randomResultButton([0, 0, 3, 3]), resultSwitch([4]))
     ), 
 
 () => operationBuilder("Appuyer deux fois sur tout les boutons dont le resultat est pair", 
@@ -142,10 +142,10 @@ export const operations = [
     buttonElem(1, "color", "#008020"),
     buttonElem(2, "color", "#5b3c11"),
     buttonElem(3, "color", "#067790"),
-    buttonElem(3, "color", "#f00020"),
-    buttonElem(3, "color", "#aa00bb"),
+    buttonElem(4, "color", "#f00020"),
+    buttonElem(5, "color", "#aa00bb"),
     ], 
-    OperationResult(randomResultButton([0,1,2]), resultSwitch([0,1]))
+    OperationResult(randomResultButton([0, 1, 2, 3, 3, 4, 4, 5, 5]), resultSwitch([]))
     ), 
     
 () => operationBuilder("Activer les switch correspondant à des boite de jeux vidéo inconnus !", 
@@ -156,7 +156,7 @@ export const operations = [
     switchElem(3, "string", "Color Dream")
     
     ], 
-    OperationResult(randomResultButton([]), resultSwitch([1, 3]))
+    OperationResult(randomResultButton([]), resultSwitch([0, 2]))
     ), 
 
 () => operationBuilder("Appuyer sur ces chiffres romain dans l'ordre !", 
@@ -167,7 +167,7 @@ export const operations = [
     buttonElem(3, "string", "XIX"),
     
     ], 
-    OperationResult(randomResultButton([1, 2, 0, 3]), resultSwitch([]))
+    OperationResult(orderedResultButton([1, 2, 0, 3]), resultSwitch([]))
     ), 
 
 () => operationBuilder("Activer les switchs dont les chiffre romain son pair", 
@@ -180,7 +180,7 @@ export const operations = [
     switchElem(5, "string", "XIII")
     
     ], 
-    OperationResult(randomResultButton([]), resultSwitch([0, 3, 4]))
+    OperationResult(randomResultButton([]), resultSwitch([0, 3, 4, 5]))
     ), 
 
 ]

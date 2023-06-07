@@ -18,7 +18,7 @@ socket 1 =>
     {
     "type": "start",
     "data": {
-        "gameId": "56zer435G"
+        "gameId": "565630"
         }
     }
 

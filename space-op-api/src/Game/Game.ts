@@ -22,6 +22,10 @@ export class Game {
       this.round = undefined
    }
 
+   passTurn(){
+      this.turn += 1
+   }
+
    setNewRound() {
       this.round = new Round(this.turn, this.players)
    }
@@ -94,6 +98,7 @@ export class Game {
 
    finishRound() {
       if (this.turn <= 20 && this.integrity > 0) {
+         this.passTurn()
          this.startRound()
       }
       else if (this.integrity <= 0) {
@@ -112,10 +117,8 @@ export class Game {
       }
    }
 
-   // TODO à voir si ça fonctionne 
    isTurnOver() {
-      console.log("turn over")
-      return this.missionsControl.filter((mc: missionControl) => mc.isFinishedReceived === true).length === 0
+      return this.missionsControl.filter((mc: missionControl) => mc.isFinishedReceived != true).length === 0
    }
 
    sendOperations(operations: InstructorOperator[]) {
