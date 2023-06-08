@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../utils/style';
 import { Link } from 'react-router-native';
 import { useAppSelector } from '../reducers/store';
-import { handleKillGame, handleStartGame } from '../api/createGame';
+import { handleKillGame } from '../api/createGame';
+import { wsHandler } from '../../App';
+import { gameStart } from '../api/models';
 
 const CreateGameScreen = () => {
     const pseudo = useAppSelector((state) => state.user.pseudo)
@@ -20,7 +22,7 @@ const CreateGameScreen = () => {
             </View>
 
             <View style={styles.btnPrimary}>
-                <TouchableOpacity onPress={handleStartGame}>
+                <TouchableOpacity onPress={()=>wsHandler.sendMessage(gameStart(gameId))}>
                     <Text>Démarrer la partie</Text>
                 </TouchableOpacity>
             </View>

@@ -6,14 +6,10 @@ interface Player {
     pseudo:string
 }
 
-export const handleCreateGame = (player:Player) => {
-    return axios.post(`${connString}/game/create`, player)
+export const handleCreateGame = () => {
+    return axios.post(`${connString}/game/create`)
         .then(res => res.data.message)
         .catch(e=>console.log(e))
-}
-
-export const handleStartGame = () => {
-    return axios.post(connString)
 }
 
 export const handleKillGame = (gameId:string) => {

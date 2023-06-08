@@ -1,8 +1,8 @@
 import { connStringWs } from "./connection"
 
-interface Message<T extends object> {
+export interface Message {
     type:string,
-    data?:T
+    data?:object
 }
 
 export class SocketHandler {
@@ -24,12 +24,12 @@ export class SocketHandler {
         }
     }
 
-    sendMessage<T extends object>(msg:Message<T>) {
+    sendMessage(msg:Message) {
         this.ws.send(JSON.stringify(msg));
     }
 
-    messageReceived<T extends object>(msg:MessageEvent) {
-        const msgData : Message<T> = JSON.parse(msg.data);
-        return msgData as Message<T>
+    messageReceived<T extends Message>(msg:MessageEvent) {
+        const msgData : T = JSON.parse(msg.data);
+        return msgData as T
     }
 }

@@ -3,13 +3,13 @@ import styles from "../utils/style"
 import { useState } from "react"
 import { Link } from "react-router-native"
 import { useAppSelector } from "../reducers/store"
-import handleJoinGame from "../api/joinGame"
+import { wsHandler } from "../../App"
+import { playerJoin } from "../api/models"
 
 
 const JoinGameScreen = () => {
     const [gameId, setGameId] = useState("")
     const {pseudo, id} = useAppSelector(state => state.user)
-
     return <View style={styles.container}>
         <Text style={styles.label}>Votre pseudo : {pseudo}</Text>
 
@@ -19,7 +19,9 @@ const JoinGameScreen = () => {
         <TextInput style={styles.textInput} placeholder="ID de partie" onChangeText={setGameId}/>
 
         <View style={styles.btnPrimary}>
-            <TouchableOpacity onPress={()=>handleJoinGame(gameId, pseudo, id)}>
+            <TouchableOpacity onPress={()=>wsHandler.sendMessage(
+                playerJoin(gameId, id, pseudo)
+            )}>
                 <Text>Rejoindre</Text>
             </TouchableOpacity>
         </View>

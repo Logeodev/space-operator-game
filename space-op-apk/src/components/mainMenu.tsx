@@ -8,8 +8,8 @@ import { useAppDispatch, useAppSelector } from '../reducers/store';
 import { handleCreateGame } from '../api/createGame';
 
 const MainMenu = () => {
-  const playerId = generateUniqueID();
   const dispatch = useAppDispatch();
+  const playerId = generateUniqueID();
   const pseudo = useAppSelector(state => state.user.pseudo)
   const id = useAppSelector(state => state.user.id)
 
@@ -26,7 +26,7 @@ const MainMenu = () => {
       <Text style={styles.text}>{playerId}</Text>
 
       <View style={styles.btnPrimary}>
-        <Link to='/create-game' onPress={() => handleCreateGame({id:id, pseudo:pseudo})}><Text>Créer une partie</Text></Link>
+        <Link to='/create-game' onPress={() => handleCreateGame()}><Text>Créer une partie</Text></Link>
       </View>
 
       <View style={styles.btnPrimary}>
