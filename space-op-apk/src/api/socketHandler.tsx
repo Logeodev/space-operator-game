@@ -1,8 +1,8 @@
 import { connStringWs } from "./connection"
 
-interface Message {
+interface Message<T extends object> {
     type:string,
-    data?:object
+    data?:T
 }
 
 export class SocketHandler {
@@ -12,11 +12,7 @@ export class SocketHandler {
         this.ws = new WebSocket(connStringWs)
 
         this.ws.onopen = () => {
-
-        }
-
-        this.ws.onmessage = e => {
-
+            console.log("Connected to server socket")
         }
 
         this.ws.onerror = e => {
@@ -24,11 +20,16 @@ export class SocketHandler {
         }
 
         this.ws.onclose = e => {
-            console.log("Connection closed")
+            console.log(`Connection closed : ${e.code}, ${e.reason}`)
         }
     }
 
-    sendMessage(msg:Message) {
+    sendMessage<T extends object>(msg:Message<T>) {
         this.ws.send(JSON.stringify(msg));
+    }
+
+    messageReceived<T extends object>(msg:MessageEvent) {
+        const msgData : Message<T> = JSON.parse(msg.data);
+        return msgData as Message<T>
     }
 }

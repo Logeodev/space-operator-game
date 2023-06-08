@@ -1,7 +1,18 @@
+# Principe de jeu
+
+Le jeu se déroule en plusieurs tours. Chaque tour implique la formation d'un couple composé d'un opérateur et d'un instructeur. Les joueurs sont assignés à des rôles spécifiques dans chaque tour.
+
+Au début de chaque tour, les joueurs sont répartis aléatoirement en couples opérateur-instructeur. Chaque couple reçoit une opération spécifique à accomplir. L'opération est une série d'éléments d'interface tels que des boutons et des interrupteurs, accompagnés d'une description.
+
+L'opérateur doit manipuler les éléments de l'interface en suivant les instructions données par l'instructeur. Les instructions peuvent inclure des actions telles que l'appui sur des boutons ou la modification de l'état des interrupteurs.
+
+Le succès de l'opération dépend de la précision avec laquelle l'opérateur exécute les instructions. Une fois que l'opération est terminée, le couple opérateur-instructeur à soit endommagé soit réparer un peu le vaisseau.
+
+Le jeu se poursuit avec de nouveaux tours, où de nouveaux couples opérateur-instructeur sont formés et de nouvelles opérations sont assignées. Les joueurs peuvent changer de rôle à chaque tour, leur permettant d'expérimenter à la fois en tant qu'opérateur et instructeur.
+
+Le jeu se termine après un certain nombre de tours prédéfini ou si le vaisseau est détruit.
+
 # Endpoints
-
-Un joueur est connecté à la socket dès l'écran principal.
-
 ## Créer une partie
 
 Un joueur peut créer une partie _via_ l'endpoint `/api/game/create`.
@@ -34,6 +45,9 @@ Il est possible de "tuer" une partie avec `/api/game/kill/:idPartie`.
 Notamment lorsqu'un hôte quitte sa partie créée ou en fin de partie.
 
 # Communication des sockets
+
+Un joueur est connecté à la socket dès l'écran principal.
+
 ## Messages des sockets
 
 L'ensemble des communications se font _via_ des objets :
@@ -96,5 +110,5 @@ Un joueur opération ayant reçu une opération (un _set_ d'instructions) à ré
 - deplacer la generation game id dans le back
 - ecran de partie en attente (une fois rejointe)
 - ecran de jeu : composants clicables et utilisation des endpoints / sockets
-> integerer les ws : https://reactnative.dev/docs/network#websocket-support
+> integrer les ws : https://reactnative.dev/docs/network#websocket-support
 - ecran win / defaite puis retour au menu
