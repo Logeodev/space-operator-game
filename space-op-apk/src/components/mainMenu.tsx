@@ -6,6 +6,8 @@ import { Link } from 'react-router-native';
 import { setId, setPseudo } from '../reducers/player';
 import { useAppDispatch, useAppSelector } from '../reducers/store';
 import { handleCreateGame } from '../api/createGame';
+import ButtonElement from '../utils/GameElements/buttonElement';
+import SwitchElement from '../utils/GameElements/switchElement';
 
 const MainMenu = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +39,8 @@ const MainMenu = () => {
         <Link to='/'><Text>Quitter</Text></Link>
       </View>
 
+      <ButtonElement id={0} valueType='number' value={2}/>
+      <SwitchElement id={1} valueType='string' value='Super' />
     </View>
   );
 };
