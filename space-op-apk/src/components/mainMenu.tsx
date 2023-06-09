@@ -40,7 +40,7 @@ const MainMenu = () => {
       </View>
 
       <ButtonElement id={0} valueType='number' value={2}/>
-      <SwitchElement id={1} valueType='string' value='Super' />
+      <SwitchElement id={1} valueType='color' value={'#ff0000'} />
     </View>
   );
 };
