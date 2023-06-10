@@ -11,14 +11,14 @@ const LifeBarElement: React.FC<Props> = ({ value }) => {
     useEffect(() => {
         Animated.timing(animatedValue, {
             toValue: value,
-            duration: 500,
+            duration: 200,
             useNativeDriver: false,
         }).start();
     }, [value]);
 
     const interpolatedColor = animatedValue.interpolate({
         inputRange: [0, 50, 100],
-        outputRange: ['#cd1616', '#004cff', "#2ec56d"],
+        outputRange: ['#ff0000', '#f2ff00', "#2ec56d"],
     });
 
     const barStyle = StyleSheet.create({
@@ -32,13 +32,12 @@ const LifeBarElement: React.FC<Props> = ({ value }) => {
         life: {
             height: '95%',
             width: `${value}%`,
-            backgroundColor: interpolatedColor
         }
     })
 
     return (
         <View style={barStyle.container}>
-            <Animated.View style={barStyle.life} />
+            <Animated.View style={[barStyle.life, {backgroundColor:interpolatedColor}]} />
         </View>
     );
 };

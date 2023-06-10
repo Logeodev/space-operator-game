@@ -19,6 +19,7 @@ const MainMenu = () => {
   useEffect(() => {dispatch(setId(playerId))},[])
 
   const [temp, setTemp] = useState(100)
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Space Operator</Text>
@@ -42,9 +43,7 @@ const MainMenu = () => {
       </View>
       <LifeBarElement value={temp} />
       <ButtonElement id={0} valueType='number' value={2} />
-      <ButtonElement id={2} valueType='color' value='#bab701'/>
-      <SwitchElement id={1} valueType='color' value={'#ff0000'} />
-      <SwitchElement id={3} valueType='string' value='Super'/>
+      <SwitchElement id={1} valueType='color' value='#ff0000' />
     </View>
   );
 };
