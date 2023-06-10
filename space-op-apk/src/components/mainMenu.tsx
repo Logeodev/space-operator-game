@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import styles from '../utils/style';
 import generateUniqueID from '../utils/UID';
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../reducers/store';
 import { handleCreateGame } from '../api/createGame';
 import ButtonElement from '../utils/GameElements/buttonElement';
 import SwitchElement from '../utils/GameElements/switchElement';
+import LifeBarElement from '../utils/GameElements/lifeBar';
 
 const MainMenu = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ const MainMenu = () => {
 
   useEffect(() => {dispatch(setId(playerId))},[])
 
+  const [temp, setTemp] = useState(100)
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Space Operator</Text>
@@ -36,11 +38,13 @@ const MainMenu = () => {
       </View>
 
       <View style={styles.btnSecondary}>
-        <Link to='/'><Text>Quitter</Text></Link>
+        <Link to='/' onPress={()=>setTemp(temp-10)}><Text>Quitter</Text></Link>
       </View>
-
-      <ButtonElement id={0} valueType='number' value={2}/>
+      <LifeBarElement value={temp} />
+      <ButtonElement id={0} valueType='number' value={2} />
+      <ButtonElement id={2} valueType='color' value='#bab701'/>
       <SwitchElement id={1} valueType='color' value={'#ff0000'} />
+      <SwitchElement id={3} valueType='string' value='Super'/>
     </View>
   );
 };
