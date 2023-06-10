@@ -41,6 +41,7 @@ const MainMenu = () => {
       <View style={styles.btnSecondary}>
         <Link to='/' onPress={()=>setTemp(temp-10)}><Text>Quitter</Text></Link>
       </View>
+
       <LifeBarElement value={temp} />
       <ButtonElement id={0} valueType='number' value={2} />
       <SwitchElement id={1} valueType='color' value='#ff0000' />

@@ -1,4 +1,5 @@
 import { connStringWs } from "./connection"
+import { playerJoin } from "./models"
 
 export interface Message {
     type:string,
@@ -15,10 +16,12 @@ export class SocketHandler {
             console.log("Connected to server socket")
         }
 
+        this.ws.onmessage = this.messageReceived
+
         this.ws.onerror = e => {
             console.log("An error occured")
         }
-
+        
         this.ws.onclose = e => {
             console.log(`Connection closed : ${e.code}, ${e.reason}`)
         }
@@ -28,8 +31,8 @@ export class SocketHandler {
         this.ws.send(JSON.stringify(msg));
     }
 
-    messageReceived<T extends Message>(msg:MessageEvent) {
-        const msgData : T = JSON.parse(msg.data);
-        return msgData as T
+    messageReceived(msg:MessageEvent):Message {
+        const msgData = JSON.parse(msg.data);
+        return msgData as Message
     }
 }
