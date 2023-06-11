@@ -15,8 +15,7 @@ export interface Message {
 export class SocketHandler {
     private ws : WebSocket
 
-    constructor(playerId : string) {
-        this.ws = new WebSocket(connStringWs + `/?id=${playerId}`)
+
     constructor(playerId : string) {
         this.ws = new WebSocket(connStringWs + `/?id=${playerId}`)
 
