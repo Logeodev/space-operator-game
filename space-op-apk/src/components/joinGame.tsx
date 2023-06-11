@@ -3,7 +3,7 @@ import styles from "../utils/style"
 import { useState } from "react"
 import { Link } from "react-router-native"
 import { useAppDispatch, useAppSelector } from "../reducers/store"
-import { wsHandler } from "../../App"
+import { wsHandler } from ".."
 import { playerJoin } from "../api/models"
 import { setGameId } from "../reducers/game"
 

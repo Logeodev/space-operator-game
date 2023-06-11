@@ -4,13 +4,12 @@ import styles from '../utils/style';
 import generateUniqueID from '../utils/UID';
 import { Link } from 'react-router-native';
 import { setId, setPseudo } from '../reducers/player';
-import { setGameId } from '../reducers/game';
 import { useAppDispatch, useAppSelector } from '../reducers/store';
 import { handleCreateGame } from '../api/createGame';
 import ButtonElement from '../utils/GameElements/buttonElement';
 import SwitchElement from '../utils/GameElements/switchElement';
 import LifeBarElement from '../utils/GameElements/lifeBar';
-import { setId as setGameId } from '../reducers/game';
+import { setGameId } from '../reducers/game';
 import { wsHandler } from '..';
 import { playerJoin } from '../api/models';
 
