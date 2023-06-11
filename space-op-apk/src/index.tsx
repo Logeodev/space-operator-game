@@ -12,8 +12,6 @@ import { setPlayerId } from './reducers/player';
 const playerId = generateUniqueID();
 export const wsHandler = new SocketHandler(playerId);
 
-
-
 export default function SapceOperatorGame() {
     const dispatch = useAppDispatch();
     useEffect(() => {

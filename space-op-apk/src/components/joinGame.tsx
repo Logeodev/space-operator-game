@@ -5,13 +5,13 @@ import { Link } from "react-router-native"
 import { useAppDispatch, useAppSelector } from "../reducers/store"
 import { wsHandler } from ".."
 import { playerJoin } from "../api/models"
-import { setGameId } from "../reducers/game"
+import { setGameId2 } from "../reducers/game"
 
 
 const JoinGameScreen = () => {
     const dispatch = useAppDispatch()
     const [gameId, setGId] = useState("")
-    const {pseudo, id} = useAppSelector(state => state.player)
+    const {pseudo, playerId} = useAppSelector(state => state.player)
     return <View style={styles.container}>
         <Text style={styles.label}>Votre pseudo : {pseudo}</Text>
 
@@ -21,14 +21,14 @@ const JoinGameScreen = () => {
         <TextInput style={styles.textInput} placeholder="ID de partie" onChangeText={setGId}/>
 
         <View style={styles.btnPrimary}>
-            <TouchableOpacity onPress={()=>{
+            <Link to='/create-game' onPress={()=>{
                 wsHandler.sendMessage(
-                    playerJoin(gameId, id, pseudo)
+                    playerJoin(gameId, playerId, pseudo)
                 ); 
-                dispatch(setGameId(gameId))
+                dispatch(setGameId2(gameId))
             }}>
                 <Text>Rejoindre</Text>
-            </TouchableOpacity>
+            </Link>
         </View>
 
         <View style={styles.btnSecondary}>

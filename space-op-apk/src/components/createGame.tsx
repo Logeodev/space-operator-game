@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../utils/style';
 import { Link } from 'react-router-native';
 import { useAppSelector } from '../reducers/store';
 import { handleKillGame } from '../api/createGame';
 import { wsHandler } from '..';
-import { gameStart } from '../api/models';
+import { Player, gameStart } from '../api/models';
+import { Octicons } from '@expo/vector-icons';
+import handlePlayerReady from '../api/playerReady';
+
 
 const CreateGameScreen = () => {
-    const pseudo = useAppSelector((state) => state.player.pseudo)
      const gameId = useAppSelector(state => state.game.gameId)
-    const playerId = useAppSelector((state) => state.player.playerId)
+     const playerId = useAppSelector((state) => state.player.playerId)
+     const players : Player [] = useAppSelector((state) => state.game.players.players)
+     const turn = useAppSelector((state) => state.turn)
+     console.log(turn.operationId)
+     if(turn.operation){
+         console.log(turn.operation)
+     }
 
-    console.log("root CGS => " + playerId)
+
+     console.log("root CGS => " + playerId)
 
     return (
         <View style={styles.container}>
@@ -21,9 +30,25 @@ const CreateGameScreen = () => {
             <Text style={styles.label}>ID : {gameId}</Text>
 
             <View style={styles.playerList}>
-                <Text style={styles.text}>{pseudo}</Text>
+              { players? players?.map((p : Player) => {
+                return (
+                        <View key={p?.pseudo} style={styles.playerCard}>
+                            <Text>{p?.pseudo}</Text>
+                            {p.status ? 
+                                <Octicons name="dot-fill" size={24} color="green" />
+                                :
+                                <Octicons name="dot-fill" size={24} color="red" />
+                            }
+                        </View>)}) 
+                    
+                    : <View></View> 
+            }
             </View>
-
+            <View style={styles.btnPrimary}>
+                <TouchableOpacity onPress={()=>handlePlayerReady(playerId)}>
+                    <Text>Ready</Text>
+                </TouchableOpacity>
+            </View>
             <View style={styles.btnPrimary}>
                 <TouchableOpacity onPress={()=>wsHandler.sendMessage(gameStart(gameId))}>
                     <Text>Démarrer la partie</Text>

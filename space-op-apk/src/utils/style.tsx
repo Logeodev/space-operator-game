@@ -49,9 +49,28 @@ const styles = StyleSheet.create({
   playerList: {
     backgroundColor:colors.darkBG,
     borderRadius:2,
-    padding:5,
+    padding:7,
     minWidth:100,
-    alignItems:'center'
+    alignItems:'center',
+    justifyContent : 'center'
+  },
+
+  playerCard : {
+    width : 250,
+    flex: 0,
+    flexDirection : 'row',
+    alignContent : 'space-between',
+    justifyContent : 'space-between',
+    alignItems:'center',
+    backgroundColor: colors.primary,
+
+    padding : 10,
+    marginBottom : 3
+  },
+
+  dot : {
+    padding: 0,
+    margin: 0
   }
 });
 

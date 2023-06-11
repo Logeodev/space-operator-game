@@ -1,8 +1,8 @@
 import axios from "axios"
 import connString from "./connection"
 
-const handlePlayerReady = (playerId : number) => {
-    axios.post(`${connString}/${playerId}`)
+const handlePlayerReady = (playerId : string) => {
+    axios.post(`${connString}/game/ready`,{playerId : playerId})
         .catch((e) => console.log(e))
 }
 

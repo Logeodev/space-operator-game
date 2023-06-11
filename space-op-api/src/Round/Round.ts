@@ -68,6 +68,7 @@ export class Round {
         return 40 - this.roundNumber
     }
 
+
     chooseChosenOperations(): InstructorOperator[] {
         const chosenOperations: InstructorOperator[] = []
         const instructors = this.playersRoles.filter(p => p.role === Role.Instructor)

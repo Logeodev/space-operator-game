@@ -104,6 +104,12 @@ export interface Player {
   status:boolean
 }
 
+export const newPlayer = (pseudo : string, status : boolean) : Player => 
+({
+  pseudo : pseudo, 
+  status : status
+});
+
 export interface Integrity extends Message {
   type:"integrity",
   data: {

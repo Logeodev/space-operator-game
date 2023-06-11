@@ -90,7 +90,6 @@ export class Game {
    startRound() {
       this.setNewRound()
       const operations: InstructorOperator[] | undefined = this.getRound()?.chooseChosenOperations()
-
       if (operations) {
          this.sendOperations(operations)
       }
@@ -130,7 +129,6 @@ export class Game {
          const instructorPlayer = this.getPlayers().find((p: Player) => p.getId() === o.instructor.playerId)
          const missionControl = newMissionControl(false, o, false)
          const roundTimer = this.getRound()?.getRoundTime()
-
          if (operatorPlayer?.getSocket()?.OPEN === 1 && instructorPlayer?.getSocket()?.OPEN === 1 && roundTimer) {
             this.addMissionControl(missionControl)
             this.sendEventOperation({

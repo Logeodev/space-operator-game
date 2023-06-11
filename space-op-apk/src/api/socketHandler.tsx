@@ -40,7 +40,6 @@ export class SocketHandler {
         switch (msgData.type) {
             case "players":
                 const players = msgData.data as Player[]
-                console.log(players)
                 store.dispatch(updatePlayers(players))
                 break;
             case "start":
@@ -48,6 +47,8 @@ export class SocketHandler {
                 break;
             case "operation":
                 const opEvent = msgData as operationEvent;
+                console.log("Event from WS =>")
+                console.log(opEvent)
                 store.dispatch(setTurn(opEvent.data.turn))
                 store.dispatch(setRole(opEvent.data.role))
                 store.dispatch(setNewOperation(opEvent.data.id, opEvent.data.operation, opEvent.data.duration))

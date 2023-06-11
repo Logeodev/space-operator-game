@@ -16,7 +16,7 @@ const roundReducer = (state = initialState, action:any):State => {
         case 'NEW_OP':
             return { 
                 ...state, 
-                operation:action.payload.op, 
+                operation:action.payload.operation, 
                 operationId:action.payload.id,
                 duration:action.payload.duration
             }

@@ -34,8 +34,11 @@ const playerRoutes = (app: Express, wss: WebSocketServer) => {
     }
   });
 
-  app.post('/api/game/ready/:playerId', (req: Request, res: Response) => {
-    const { playerId } = req.params
+  app.post('/api/game/ready', (req: Request, res: Response) => {
+
+    console.log(req.body)
+    const playerId = req.body.playerId
+    console.log(playerId)
     const player: Player | undefined = playersManager.find((p: Player) => p.getId() === playerId)
     const game: Game | undefined = gameInstances.find((g: Game) => g.getGameId() === player?.getGameId())
 
