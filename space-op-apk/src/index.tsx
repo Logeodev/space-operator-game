@@ -15,7 +15,6 @@ export const wsHandler = new SocketHandler(playerId);
 export default function SapceOperatorGame() {
     const dispatch = useAppDispatch();
     useEffect(() => {
-      console.log("hello i'm default player Id")
         dispatch(setPlayerId(playerId)); 
         },[])
      

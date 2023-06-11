@@ -31,7 +31,6 @@ const MainMenu = () => {
 
       <View style={styles.btnPrimary}>
         <Link to='/create-game' onPress={() => {
-          console.log("/create game  " + playerId)
           handleCreateGame()
           .then(msg => {dispatch(setGameId2(msg)); return msg;})
           .then((m) => wsHandler.sendMessage(playerJoin(m, playerId, pseudo)))  
