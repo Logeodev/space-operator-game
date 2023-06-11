@@ -1,11 +1,11 @@
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
 import { combineReducers, legacy_createStore as createStore } from 'redux';
-import userReducer from './player';
+import playerReducer from './player';
 import gameReducer from './game';
 import roundReducer from './round';
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  player: playerReducer,
   game: gameReducer,
   turn: roundReducer
 });

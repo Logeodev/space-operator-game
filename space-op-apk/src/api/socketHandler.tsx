@@ -40,6 +40,7 @@ export class SocketHandler {
         switch (msgData.type) {
             case "players":
                 const players = msgData.data as Player[]
+                console.log(players)
                 store.dispatch(updatePlayers(players))
                 break;
             case "start":

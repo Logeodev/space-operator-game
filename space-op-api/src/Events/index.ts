@@ -26,10 +26,11 @@ export const WssMessageHandlder = function (message: any) {
 }
 
 const joinGame = function (playerData: playerJoin) {
-
+  console.log("player trying to join")
   const player: Player | undefined = playersManager.find((p: Player) => p.getId() === playerData.data.playerId)
   const game: Game | undefined = gameInstances.find((g: Game) => g.getGameId() === playerData.data.gameId)
   if (game && player) {
+    console.log("player as join")
     player.setPseudo(playerData.data.playerName)
     if (!game.isPlayerById(player.getId())) {
       player.setGameId(game.getGameId())

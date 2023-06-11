@@ -1,24 +1,24 @@
 import { Role } from "../api/models";
 
-interface State {
+interface playerState {
     pseudo:string,
-    id:string,
+    playerId:string,
     role: Role
 }
 
-const initialState : State = {
+const initialState : playerState = {
     pseudo: '',
-    id: '',
+    playerId: '',
     role: Role.Waiting
 };
 
 
-const userReducer = (state = initialState, action: any):State => {
+const playerReducer = (state = initialState, action: any):playerState => {
     switch (action.type) {
         case 'SET_PSEUDO':
             return { ...state, pseudo: action.payload };
         case 'SET_ID':
-            return { ...state, id: action.payload };
+            return { ...state, playerId: action.payload };
         case 'SET_ROLE':
             return { ...state, role: action.payload };
         default:
@@ -31,7 +31,7 @@ export const setPseudo = (pseudo: string) => ({
     payload: pseudo,
 });
 
-export const setId = (id: string) => ({
+export const setPlayerId = (id: string) => ({
     type: 'SET_ID',
     payload: id,
 });
@@ -42,4 +42,4 @@ export const setRole = (r:Role) => ({
 })
 
 
-export default userReducer;
+export default playerReducer;

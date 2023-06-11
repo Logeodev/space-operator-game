@@ -6,7 +6,7 @@ import { SocketHandler } from './api/socketHandler';
 import generateUniqueID from './utils/UID';
 import React, { useEffect } from 'react';
 import { useAppDispatch } from './reducers/store';
-import { setId as setPlayerId, setPseudo } from './reducers/player';
+import { setPlayerId } from './reducers/player';
 
 
 const playerId = generateUniqueID();
@@ -17,8 +17,9 @@ export const wsHandler = new SocketHandler(playerId);
 export default function SapceOperatorGame() {
     const dispatch = useAppDispatch();
     useEffect(() => {
+      console.log("hello i'm default player Id")
         dispatch(setPlayerId(playerId)); 
-        dispatch(setPseudo(''))},[])
+        },[])
      
 
   return (

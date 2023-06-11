@@ -3,7 +3,7 @@ import styles from "../utils/style"
 import { useState } from "react"
 import { Link } from "react-router-native"
 import { useAppDispatch, useAppSelector } from "../reducers/store"
-import { wsHandler } from "../../App"
+import { wsHandler } from ".."
 import { playerJoin } from "../api/models"
 import { setGameId } from "../reducers/game"
 
@@ -11,7 +11,7 @@ import { setGameId } from "../reducers/game"
 const JoinGameScreen = () => {
     const dispatch = useAppDispatch()
     const [gameId, setGId] = useState("")
-    const {pseudo, id} = useAppSelector(state => state.user)
+    const {pseudo, id} = useAppSelector(state => state.player)
     return <View style={styles.container}>
         <Text style={styles.label}>Votre pseudo : {pseudo}</Text>
 

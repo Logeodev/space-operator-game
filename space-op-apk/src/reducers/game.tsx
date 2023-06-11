@@ -1,7 +1,7 @@
 import { Player } from "../api/models"
 
-interface State {
-    id:string,
+interface gameState {
+    gameId:string,
     players:Player[],
     vesselLife:number,
     started:boolean,
@@ -9,8 +9,8 @@ interface State {
     currentTurn:number
 }
 
-const initialState : State = {
-    id:'',
+const initialState : gameState = {
+    gameId:'',
     players: [],
     vesselLife: 100,
     started:false,
@@ -18,10 +18,12 @@ const initialState : State = {
     victory:false
 }
 
-const gameReducer = (state = initialState, action:any):State => {
+const gameReducer = (state = initialState, action:any):gameState => {
     switch (action.type) {
         case 'SET_ID':
-            return { ...state, id: action.payload}
+            return { ...state, gameId: action.payload}
+        case 'SET_ID2':
+            return { ...state, gameId: action.payload}
         case 'NEW_PLAYER':
             return { ...state, players: action.payload }
         case 'START_STOP':
@@ -37,8 +39,8 @@ const gameReducer = (state = initialState, action:any):State => {
     }
 }
 
-export const setGameId = (id:string) => ({
-    type: 'SET_ID',
+export const setGameId2 = (id:string) => ({
+    type: 'SET_ID2',
     payload: id
 });
 

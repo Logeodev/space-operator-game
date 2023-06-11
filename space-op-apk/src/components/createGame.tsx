@@ -8,8 +8,11 @@ import { wsHandler } from '..';
 import { gameStart } from '../api/models';
 
 const CreateGameScreen = () => {
-    const pseudo = useAppSelector((state) => state.user.pseudo)
-    const gameId = useAppSelector(state => state.game.id)
+    const pseudo = useAppSelector((state) => state.player.pseudo)
+     const gameId = useAppSelector(state => state.game.gameId)
+    const playerId = useAppSelector((state) => state.player.playerId)
+
+    console.log("root CGS => " + playerId)
 
     return (
         <View style={styles.container}>
@@ -26,9 +29,9 @@ const CreateGameScreen = () => {
                     <Text>Démarrer la partie</Text>
                 </TouchableOpacity>
             </View>
-            
+   
             <View style={styles.btnSecondary}>
-                <Link to='/' onPress={() => handleKillGame(gameId)}><Text>Retour</Text></Link>
+                <Link to='/' onPress={() =>handleKillGame(gameId)}><Text>Retour</Text></Link>
             </View>
         </View>
     );

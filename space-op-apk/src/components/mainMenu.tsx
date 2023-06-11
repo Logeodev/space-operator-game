@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import styles from '../utils/style';
-import generateUniqueID from '../utils/UID';
 import { Link } from 'react-router-native';
-import { setId, setPseudo } from '../reducers/player';
-import { setGameId } from '../reducers/game';
+import {setPseudo } from '../reducers/player';
+import { setGameId2 } from '../reducers/game';
 import { useAppDispatch, useAppSelector } from '../reducers/store';
 import { handleCreateGame } from '../api/createGame';
 import ButtonElement from '../utils/GameElements/buttonElement';
@@ -15,8 +14,9 @@ import { wsHandler } from '..';
 
 const MainMenu = () => {
  const dispatch = useAppDispatch();
- const pseudo = useAppSelector(state => state.user.pseudo)
- const playerId = useAppSelector(state => state.user.id)
+ const pseudo = useAppSelector(state => state.player.pseudo)
+ const playerId = useAppSelector(state => state.player.playerId)
+ console.log(playerId)
 
 
   const [temp, setTemp] = useState(100)
@@ -35,8 +35,10 @@ const MainMenu = () => {
 
       <View style={styles.btnPrimary}>
         <Link to='/create-game' onPress={() => {
+          console.log("/create game  " + playerId)
           handleCreateGame()
-          .then(msg => {dispatch(setGameId(msg)); return msg;})
+          .then(msg => {dispatch(setGameId2(msg)); 
+            return msg;})
           .then((m) => wsHandler.sendMessage(playerJoin(m, playerId, pseudo)))  
         }}><Text>Créer une partie</Text></Link>
       </View>
