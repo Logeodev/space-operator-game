@@ -1,3 +1,5 @@
+import store from "../reducers/store"
+import { Message } from "./socketHandler"
 
 export interface playerJoin {
   type: "connect",
@@ -39,10 +41,10 @@ export interface operatorFinished {
   }
 }
 
-export const operatorFinished = (operator: string, success: boolean): operatorFinished => ({
+export const operatorFinished = (success: boolean): operatorFinished => ({
   type:"finish",
   data:{
-    operator:operator,
+    operator:store.getState().turn.operationId,
     success:success
   }
 })
@@ -72,7 +74,7 @@ interface OperationResult {
 
 export interface Operation {
   elements: element[],
-  descritpion: String,
+  description: String,
   result: OperationResult
 }
 
@@ -94,5 +96,17 @@ export interface operationEvent {
     id: string,
     duration: number,
     operation: Operation
+  }
+}
+
+export interface Player {
+  pseudo:string,
+  status:boolean
+}
+
+export interface Integrity extends Message {
+  type:"integrity",
+  data: {
+    integrity:number
   }
 }

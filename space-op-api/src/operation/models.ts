@@ -50,17 +50,17 @@ type value =  String | Number
 
 export interface Operation {
     elements: element [],
-    descritpion: String,
+    description: String,
     result: OperationResult
 }
 
 const Operation = (
     elements: element [],
-    descritpion: String,
+    description: String,
     result: OperationResult
 ): Operation => ({
     elements,
-    descritpion,
+    description,
     result
 });
 

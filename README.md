@@ -106,8 +106,6 @@ Un joueur opération ayant reçu une opération (un _set_ d'instructions) à ré
 
 # TODO
 
-- modifier les endpoints join et create 
-- deplacer la generation game id dans le back
 - ecran de partie en attente (une fois rejointe)
 - ecran de jeu : composants clicables et utilisation des endpoints / sockets
 > integrer les ws : https://reactnative.dev/docs/network#websocket-support

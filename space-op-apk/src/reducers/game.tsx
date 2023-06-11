@@ -1,13 +1,21 @@
+import { Player } from "../api/models"
+
 interface State {
     id:string,
-    otherPlayersIds:string[],
-    vesselLife:number
+    players:Player[],
+    vesselLife:number,
+    started:boolean,
+    victory:boolean,
+    currentTurn:number
 }
 
 const initialState : State = {
     id:'',
-    otherPlayersIds: [],
-    vesselLife: 100
+    players: [],
+    vesselLife: 100,
+    started:false,
+    currentTurn:1,
+    victory:false
 }
 
 const gameReducer = (state = initialState, action:any):State => {
@@ -15,7 +23,15 @@ const gameReducer = (state = initialState, action:any):State => {
         case 'SET_ID':
             return { ...state, id: action.payload}
         case 'NEW_PLAYER':
-            return { ...state, otherPlayersIds: state.otherPlayersIds.concat([action.payload]) }
+            return { ...state, players: action.payload }
+        case 'START_STOP':
+            return { ...state, started: action.payload }
+        case 'NEW_TURN':
+            return { ...state, currentTurn:action.payload }
+        case 'SET_INTEGRITY':
+            return { ...state, vesselLife:action.payload }
+        case 'VICTORY':
+            return { ...state, victory:action.payload, started:false }
         default:
             return state
     }
@@ -26,9 +42,29 @@ export const setGameId = (id:string) => ({
     payload: id
 });
 
-export const addDistantPlayer = (pId:string) => ({
+export const updatePlayers = (ps:Player[]) => ({
     type: 'NEW_PLAYER',
-    payload: pId
+    payload: ps
+})
+
+export const setGameRunning = (started:boolean) => ({
+    type: 'START_STOP',
+    payload: started
+})
+
+export const setTurn = (turn:number) => ({
+    type:'NEW_TURN',
+    payload: turn
+})
+
+export const setIntegrity = (integrity:number) => ({
+    type:'SET_INTEGRITY',
+    payload:integrity
+})
+
+export const setVictory = (victory:boolean) => ({
+    type:'VICTORY',
+    payload:victory
 })
 
 export default gameReducer;

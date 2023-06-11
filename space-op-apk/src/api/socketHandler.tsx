@@ -1,5 +1,9 @@
+import { setGameRunning, setIntegrity, setTurn, setVictory, updatePlayers } from "../reducers/game"
+import { setRole } from "../reducers/player"
+import { setNewOperation } from "../reducers/round"
+import store from "../reducers/store"
 import { connStringWs } from "./connection"
-import { playerJoin } from "./models"
+import { Integrity, Player, operationEvent } from "./models"
 
 export interface Message {
     type:string,
@@ -31,8 +35,34 @@ export class SocketHandler {
         this.ws.send(JSON.stringify(msg));
     }
 
-    messageReceived(msg:MessageEvent):Message {
-        const msgData = JSON.parse(msg.data);
-        return msgData as Message
+    messageReceived(msg:MessageEvent) {
+        const msgData = JSON.parse(msg.data) as Message;
+        switch (msgData.type) {
+            case "players":
+                const players = msgData.data as Player[]
+                store.dispatch(updatePlayers(players))
+                break;
+            case "start":
+                store.dispatch(setGameRunning(true))
+                break;
+            case "operation":
+                const opEvent = msgData as operationEvent;
+                store.dispatch(setTurn(opEvent.data.turn))
+                store.dispatch(setRole(opEvent.data.role))
+                store.dispatch(setNewOperation(opEvent.data.id, opEvent.data.operation))
+                break;
+            case "integrity":
+                const integrityMessage = msgData as Integrity
+                store.dispatch(setIntegrity(integrityMessage.data.integrity))
+                break;
+            case "victory":
+                store.dispatch(setVictory(true))
+                break;
+            case "destroyed":
+                store.dispatch(setVictory(false))
+            default:
+                "Unknown response";
+                break;
+        }
     }
 }
