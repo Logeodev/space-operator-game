@@ -9,7 +9,10 @@ import { Game } from '../Game/Game';
 const playerRoutes = (app: Express, wss: WebSocketServer) => {
 
   wss.on('connection', (socket: WebSocket, req) => {
-    const playerId = req.headers['playerid'];
+    //const playerId = req.headers['playerid'];
+    const playerId = req.url
+    console.log(req.url)
+
 
     if (typeof playerId === 'string') {
       const findPlayer: Player | undefined = playersManager.find((p) => p.getId() === playerId)
