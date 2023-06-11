@@ -16,7 +16,7 @@ const gameRoutes = (app: Express) => {
     const id = generateGameID()
     const game = new Game(id)
     gameInstances.push(game)
-    res.status(200).json({ message: `Partie crée : ${id}` })
+    res.status(200).json({ message: `Partie crée : ${id}`, id : game.getGameId() })
   });
 
   app.delete('/api/game/kill/:id', (req: Request, res: Response) => {

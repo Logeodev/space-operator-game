@@ -4,7 +4,7 @@ import styles from '../utils/style';
 import { Link } from 'react-router-native';
 import { useAppSelector } from '../reducers/store';
 import { handleKillGame } from '../api/createGame';
-import { wsHandler } from '../../App';
+import { wsHandler } from '..';
 import { gameStart } from '../api/models';
 
 const CreateGameScreen = () => {

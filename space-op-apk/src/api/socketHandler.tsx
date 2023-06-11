@@ -1,16 +1,16 @@
 import { connStringWs } from "./connection"
-import { playerJoin } from "./models"
 
 export interface Message {
     type:string,
     data?:object
 }
 
+
 export class SocketHandler {
     private ws : WebSocket
 
-    constructor() {
-        this.ws = new WebSocket(connStringWs)
+    constructor(playerId : string) {
+        this.ws = new WebSocket(connStringWs + `/?id=${playerId}`)
 
         this.ws.onopen = () => {
             console.log("Connected to server socket")
@@ -35,4 +35,5 @@ export class SocketHandler {
         const msgData = JSON.parse(msg.data);
         return msgData as Message
     }
+
 }
