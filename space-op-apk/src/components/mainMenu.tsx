@@ -10,19 +10,14 @@ import { handleCreateGame } from '../api/createGame';
 import ButtonElement from '../utils/GameElements/buttonElement';
 import SwitchElement from '../utils/GameElements/switchElement';
 import LifeBarElement from '../utils/GameElements/lifeBar';
-import { wsHandler } from '../../App';
 import { playerJoin } from '../api/models';
+import { wsHandler } from '..';
 
 const MainMenu = () => {
-  const dispatch = useAppDispatch();
-  const playerId = generateUniqueID();
+ const dispatch = useAppDispatch();
+ const pseudo = useAppSelector(state => state.user.pseudo)
+ const playerId = useAppSelector(state => state.user.id)
 
- //useEffect(() => {dispatch(setId(playerId)); dispatch(setPseudo(''))},[])
- const pseudo = useAppSelector(state => state.player.pseudo)
-  // const id = useAppSelector(state => state.user.id)
-  //console.log(pseudo)
-
-  
 
   const [temp, setTemp] = useState(100)
 
@@ -31,9 +26,9 @@ const MainMenu = () => {
       <Text style={styles.title}>Space Operator</Text>
 
       <Text style={styles.label}>Nom du joueur:</Text>
-      <TextInput style={styles.textInput} onChangeText={e => {}} placeholder='Pseudo' />
+      <TextInput style={styles.textInput} onChangeText={e => {dispatch(setPseudo(e));}} placeholder='Pseudo' />
 {
-  // dispatch(setPseudo(e));
+  // 
 }
       <Text style={styles.label}>ID du joueur:</Text>
       <Text style={styles.text}>{playerId}</Text>
@@ -42,7 +37,7 @@ const MainMenu = () => {
         <Link to='/create-game' onPress={() => {
           handleCreateGame()
           .then(msg => {dispatch(setGameId(msg)); return msg;})
-          //.then((m) => wsHandler.sendMessage(playerJoin(m, playerId, pseudo)))  
+          .then((m) => wsHandler.sendMessage(playerJoin(m, playerId, pseudo)))  
         }}><Text>Créer une partie</Text></Link>
       </View>
 
