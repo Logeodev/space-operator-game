@@ -14,17 +14,23 @@ const initialState : State = {
 const roundReducer = (state = initialState, action:any):State => {
     switch (action.type) {
         case 'NEW_OP':
-            return { ...state, operation:action.payload.op, operationId:action.payload.id}
+            return { 
+                ...state, 
+                operation:action.payload.op, 
+                operationId:action.payload.id,
+                duration:action.payload.duration
+            }
         default:
             return state
     }
 }
 
-export const setNewOperation = (opId:string, op:Operation) => ({
+export const setNewOperation = (opId:string, op:Operation, duration:number) => ({
     type:'NEW_OP',
     payload:{
         id:opId,
-        operation:op
+        operation:op,
+        duration:duration
     }
 })
 

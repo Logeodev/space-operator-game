@@ -49,7 +49,7 @@ export class SocketHandler {
                 const opEvent = msgData as operationEvent;
                 store.dispatch(setTurn(opEvent.data.turn))
                 store.dispatch(setRole(opEvent.data.role))
-                store.dispatch(setNewOperation(opEvent.data.id, opEvent.data.operation))
+                store.dispatch(setNewOperation(opEvent.data.id, opEvent.data.operation, opEvent.data.duration))
                 break;
             case "integrity":
                 const integrityMessage = msgData as Integrity
