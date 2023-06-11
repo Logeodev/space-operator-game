@@ -43,6 +43,3 @@ app.get('/', (req: Request, res: Response) => {
 
 playerRoutes(app, wss)
 gameRoutes(app)
-
-
-

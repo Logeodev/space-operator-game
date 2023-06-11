@@ -21,7 +21,7 @@ Cela génére en _backend_ un identifiant de partie, que le joueur doit communiq
 On reçoit :
 ```json
 {
-    "message": "Partie crée : 565630"
+    "message": "565630"
 }
 ``` 
 

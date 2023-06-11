@@ -21,7 +21,7 @@ const gameReducer = (state = initialState, action:any):State => {
     }
 }
 
-export const setId = (id:string) => ({
+export const setGameId = (id:string) => ({
     type: 'SET_ID',
     payload: id
 });

@@ -4,11 +4,14 @@ import styles from '../utils/style';
 import generateUniqueID from '../utils/UID';
 import { Link } from 'react-router-native';
 import { setId, setPseudo } from '../reducers/player';
+import { setGameId } from '../reducers/game';
 import { useAppDispatch, useAppSelector } from '../reducers/store';
 import { handleCreateGame } from '../api/createGame';
 import ButtonElement from '../utils/GameElements/buttonElement';
 import SwitchElement from '../utils/GameElements/switchElement';
 import LifeBarElement from '../utils/GameElements/lifeBar';
+import { wsHandler } from '../../App';
+import { playerJoin } from '../api/models';
 
 const MainMenu = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +34,11 @@ const MainMenu = () => {
       <Text style={styles.text}>{playerId}</Text>
 
       <View style={styles.btnPrimary}>
-        <Link to='/create-game' onPress={() => handleCreateGame()}><Text>Créer une partie</Text></Link>
+        <Link to='/create-game' onPress={() => {
+          handleCreateGame()
+          .then(msg => {dispatch(setGameId(msg)); return msg;})
+          .then((m) => wsHandler.sendMessage(playerJoin(m, playerId, pseudo)))  
+        }}><Text>Créer une partie</Text></Link>
       </View>
 
       <View style={styles.btnPrimary}>
