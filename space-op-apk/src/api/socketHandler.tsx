@@ -10,11 +10,12 @@ export interface Message {
     data?:object
 }
 
+
 export class SocketHandler {
     private ws : WebSocket
 
-    constructor() {
-        this.ws = new WebSocket(connStringWs)
+    constructor(playerId : string) {
+        this.ws = new WebSocket(connStringWs + `/?id=${playerId}`)
 
         this.ws.onopen = () => {
             console.log("Connected to server socket")
@@ -65,4 +66,5 @@ export class SocketHandler {
                 break;
         }
     }
+
 }

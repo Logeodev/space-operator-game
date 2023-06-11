@@ -8,9 +8,7 @@ interface Player {
 
 export const handleCreateGame = () => {
     return axios.post(`${connString}/game/create`)
-        .then(res => {
-            return res.data.message
-        })
+        .then(res => res.data.id)
         .catch(e=>console.log(e))
 }
 

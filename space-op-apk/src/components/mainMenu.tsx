@@ -10,18 +10,21 @@ import { handleCreateGame } from '../api/createGame';
 import ButtonElement from '../utils/GameElements/buttonElement';
 import SwitchElement from '../utils/GameElements/switchElement';
 import LifeBarElement from '../utils/GameElements/lifeBar';
-import { wsHandler } from '../../App';
+import { setId as setGameId } from '../reducers/game';
+import { wsHandler } from '..';
 import { playerJoin } from '../api/models';
 
 const MainMenu = () => {
   const dispatch = useAppDispatch();
-  const playerId = generateUniqueID();
   const pseudo = useAppSelector(state => state.user.pseudo)
-  const id = useAppSelector(state => state.user.id)
-
-  useEffect(() => {dispatch(setId(playerId))},[])
+  const playerId = useAppSelector(state => state.user.id)
 
   const [temp, setTemp] = useState(100)
+
+  const hostJointGame = (gameId : string) => {
+    dispatch(setGameId(gameId))
+    wsHandler.sendMessage(playerJoin(gameId, playerId, pseudo))
+  }
 
   return (
     <View style={styles.container}>
@@ -34,11 +37,8 @@ const MainMenu = () => {
       <Text style={styles.text}>{playerId}</Text>
 
       <View style={styles.btnPrimary}>
-        <Link to='/create-game' onPress={() => {
-          handleCreateGame()
-          .then(msg => {dispatch(setGameId(msg)); return msg;})
-          .then((m) => wsHandler.sendMessage(playerJoin(m, playerId, pseudo)))  
-        }}><Text>Créer une partie</Text></Link>
+        <Link to='/create-game' onPress={() => handleCreateGame()
+                                              .then((res : string) => hostJointGame(res))}><Text>Créer une partie</Text></Link>
       </View>
 
       <View style={styles.btnPrimary}>
