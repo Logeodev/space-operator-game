@@ -15,13 +15,12 @@ const CreateGameScreen = () => {
      const playerId = useAppSelector((state) => state.player.playerId)
      const players : Player [] = useAppSelector((state) => state.game.players.players)
      const turn = useAppSelector((state) => state.turn)
+
+     console.log("Game Start : from Create Game Page =>")
      console.log(turn.operationId)
      if(turn.operation){
          console.log(turn.operation)
      }
-
-
-     console.log("root CGS => " + playerId)
 
     return (
         <View style={styles.container}>
