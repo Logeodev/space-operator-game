@@ -145,19 +145,19 @@ export const operations = [
     buttonElem(4, "color", "#f00020"),
     buttonElem(5, "color", "#aa00bb"),
     ], 
-    OperationResult(randomResultButton([0, 1, 2, 3, 3, 4, 4, 5, 5]), resultSwitch([]))
+    OperationResult(randomResultButton([0, 3, 4]), resultSwitch([]))
     ), 
     
-() => operationBuilder("Activer les switch correspondant à des boite de jeux vidéo inconnus !", 
-[
-    switchElem(0, "string", "Meca Form"),
-    switchElem(1, "string", "Epic Games"),
-    switchElem(2, "string", "Progestuel"),
-    switchElem(3, "string", "Color Dream")
+// () => operationBuilder("Activer les switch correspondant à des boite de jeux vidéo inconnus !", 
+// [
+//     switchElem(0, "string", "Meca Form"),
+//     switchElem(1, "string", "Epic Games"),
+//     switchElem(2, "string", "Progestuel"),
+//     switchElem(3, "string", "Color Dream")
     
-    ], 
-    OperationResult(randomResultButton([]), resultSwitch([0, 2]))
-    ), 
+//     ], 
+//     OperationResult(randomResultButton([]), resultSwitch([0, 2]))
+//     ), 
 
 () => operationBuilder("Appuyer sur ces chiffres romain dans l'ordre !", 
 [
@@ -170,18 +170,18 @@ export const operations = [
     OperationResult(orderedResultButton([1, 2, 0, 3]), resultSwitch([]))
     ), 
 
-() => operationBuilder("Activer les switchs dont les chiffre romain son pair", 
-[
-    switchElem(0, "string", "IV"),
-    switchElem(1, "string", "XIX"),
-    switchElem(2, "string", "XV"),
-    switchElem(3, "string", "XXII"),
-    switchElem(4, "string", "XXX"),
-    switchElem(5, "string", "XIII")
+// () => operationBuilder("Activer les switchs dont les chiffres romain son pair", 
+// [
+//     switchElem(0, "string", "IV"),
+//     switchElem(1, "string", "XIX"),
+//     switchElem(2, "string", "XV"),
+//     switchElem(3, "string", "XXII"),
+//     switchElem(4, "string", "XXX"),
+//     switchElem(5, "string", "XIII")
     
-    ], 
-    OperationResult(randomResultButton([]), resultSwitch([0, 3, 4, 5]))
-    ), 
+//     ], 
+//     OperationResult(randomResultButton([]), resultSwitch([0, 3, 4]))
+//     ), 
 
 ]
 

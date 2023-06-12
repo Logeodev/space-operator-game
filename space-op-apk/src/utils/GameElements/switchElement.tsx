@@ -23,33 +23,42 @@ const SwitchElement: React.FC<Props> = ({ id, valueType, value }) => {
   const resultButton = turn.operationGregory?.resultButton
   const resultSwitch = turn.operationGregory?.resultSwitch
 
-  // console.log("SWITCH RELOAD")
-  // console.log("RES BT => ",resultButton)
-  // console.log("RES SWITCH => ",resultSwitch)
-
   const handleSwitchToggle = (newValue: boolean) => {
-    setSwitchValue(newValue);
-    resultButton != undefined && resultSwitch != undefined ? 
+  setSwitchValue(newValue);
+  
+  if(resultButton != undefined && resultSwitch != undefined){
     switchPressed(resultButton, resultSwitch)
-    : console.log("error")
+    console.log("result => ")
+    console.log(turn.operation?.result)
+  }      
+  
   };
 
   const switchPressed = (resultButtonStore : resultButton, resultSwitchStore : resultSwitch) => {
-    console.log("WE GOT IN Switch PRESSED")
-    if(resultButton && resultSwitch){
-      console.log(resultButton)
-      console.log(addResultSwitch(resultSwitch.ids.concat([id])))
+    if(resultSwitchStore?.ids.filter(i => i === id).length > 0){
+      delete resultSwitchStore.ids[resultSwitchStore.ids.findIndex(i => i === id)]
+      dispatch(setOperationGregory(resultButtonStore, 
+                                  addResultSwitch(resultSwitchStore.ids.filter(r => r != undefined)
+                                                 )
+                                  )
+              )
+      console.log(resultSwitchStore.ids.filter(r => r != undefined))
+
+    } else {
+      dispatch(setOperationGregory(
+                                  resultButtonStore, 
+                                  addResultSwitch(
+                                                  resultSwitchStore.ids.concat([id])
+                                                 )
+                                  )
+              )
+      console.log(resultSwitchStore.ids.concat([id]))
+    
     }
 
-    if(resultButton?.ids.find( id => id)){
-      delete resultButton.ids[resultButton.ids.findIndex(id => id)]
-    }
+  console.log(turn.operation?.result)
 
-    resultButton != undefined && resultSwitch != undefined ? 
-    dispatch(
-        setOperationGregory(resultButton, addResultSwitch(resultSwitch.ids.concat([id])))
-        )
-        : console.error("err")
+
 } 
 
   const size = 90;

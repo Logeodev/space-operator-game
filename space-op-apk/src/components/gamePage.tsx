@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ScrollView } from "react-native"
+import { StyleSheet, View, Text, ScrollView, Touchable } from "react-native"
 import { useState, useEffect } from "react"
 import { useAppSelector } from "../reducers/store"
 import LifeBarElement from "../utils/GameElements/lifeBar"
@@ -7,6 +7,9 @@ import { Operation, Role } from "../api/models"
 import ButtonElement from "../utils/GameElements/buttonElement"
 import SwitchElement from "../utils/GameElements/switchElement"
 import ChronometerDisplay from "../utils/GameElements/chronometer"
+import { TouchableOpacity } from "react-native"
+import { operationsResult } from "../reducers/round"
+import { wsHandler } from ".."
 
 export const GamePage = () => {
     const vesselIntegrity = useAppSelector(state => state.game.vesselLife)
@@ -14,24 +17,36 @@ export const GamePage = () => {
     const role = useAppSelector(state => state.player.role)
     const time = {time:Date.now()}
     
-    useEffect(() => {
-        console.log('setting time')
-        time.time = Date.now()
-        setInterval(() => {
-            if (time.time >= 0) {
-                console.log(time)
+    // useEffect(() => {
+    //     console.log('setting time')
+    //     time.time = Date.now()
+    //     setInterval(() => {
+    //         if (time.time >= 0) {
+    //             console.log(time)
 
-            } else if (time.time === 0) {
-                //End of turn 
-                console.log(`over : ${time}`)
-            } else if (time.time === -1) {
-                console.log('initial time')
-            }
-       }, 1000);
-    }, [currentRound.duration])
+    //         } else if (time.time === 0) {
+    //             //End of turn 
+    //             console.log(`over : ${time}`)
+    //         } else if (time.time === -1) {
+    //             console.log('initial time')
+    //         }
+    //    }, 1000);
+    // }, [currentRound.duration])
+
+    const finishRound = () =>{
+        console.log(operationsResult(currentRound))
+        if(operationsResult(currentRound)){
+            //wsHandler.sendMessage()
+        }
+    }
     
     return <View style={styles.container}>
         <LifeBarElement value={vesselIntegrity}/>
+        <View style={styles.btnPrimary}>
+            <TouchableOpacity onPress={() => finishRound()}>
+                <Text>Finished</Text>
+            </TouchableOpacity>
+        </View>
         {
             <ChronometerDisplay totalTime={currentRound.duration} time={time.time}/>
         }
@@ -41,15 +56,18 @@ export const GamePage = () => {
                 <Text style={styles.label}>
                     {currentRound.operation?.description}
                 </Text>
+                <Text>END</Text>
             </View>
+            
             :
                 role === Role.Instructor?
                 <View style={style.operations}>
-                    <ScrollView>
+                    <ScrollView horizontal={true}>
                     {
                         currentRound.operation&&
                         displayOperationElements(currentRound.operation)
                     }
+                    <Text>END</Text>
                     </ScrollView>
                 </View>
                 :
@@ -64,7 +82,7 @@ const style = StyleSheet.create({
         flexDirection:'row',
         flexWrap:"wrap",
         width:'100%',
-        maxHeight:'80%'
+        maxHeight:'70%'
     }
 })
 

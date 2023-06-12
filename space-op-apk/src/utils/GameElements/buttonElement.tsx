@@ -28,6 +28,9 @@ const ButtonElement: React.FC<Props> = ({ id, valueType, value }) => {
         if(resultButton && resultSwitch){
             console.log(addResultsButton(resultButton.order ,resultButton.ids.concat([id])))
             console.log(resultSwitch)
+
+            console.log("result => ")
+            console.log(turn.operation?.result)
         }
         resultButton != undefined && resultSwitch ? 
         dispatch(
