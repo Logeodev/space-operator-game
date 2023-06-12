@@ -41,7 +41,6 @@ const MainMenu = () => {
         <Link to='/'><Text>Quitter</Text></Link>
       </View>
 
-      <ChronometerDisplay totalTime={40} elapsedTime={0}/>
     </View>
   );
 };

@@ -1,25 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, Text } from 'react-native';
 
 interface Props {
-  totalTime: number,
-  elapsedTime: number
+    totalTime: number
+    time: number
 }
 
-const ChronometerDisplay: React.FC<Props> = ({ totalTime, elapsedTime }) => {
+const ChronometerDisplay: React.FC<Props> = ({ time, totalTime }) => {
+    const elapsedTime = Math.floor(time / totalTime * 100)
     const animatedValue = useRef(new Animated.Value(elapsedTime)).current;
-    
     useEffect(() => {
         Animated.timing(animatedValue, {
             toValue: elapsedTime,
-            duration: totalTime,
+            duration: 100,
             useNativeDriver: false,
         }).start();
     }, [elapsedTime]);
 
     const interpolatedColor = animatedValue.interpolate({
-        inputRange: [0, 50, 100],
-        outputRange: ["#00eaff" , '#d4d942', '#ff0000'],
+        inputRange: [0, 100],
+        outputRange: ["#ff0000", "#00eaff"]
     });
 
     const size = 100
@@ -29,14 +29,15 @@ const ChronometerDisplay: React.FC<Props> = ({ totalTime, elapsedTime }) => {
             alignItems: 'center',
             height: size,
             width: size,
-            borderRadius: Math.floor(size/2),
+            borderRadius: Math.floor(size / 2),
             backgroundColor: "#a8a8a8"
         },
         life: {
             position: 'absolute',
             top: '50%',
             left: '50%',
-            borderRadius:Math.floor(size/2)
+            borderRadius: Math.floor(size / 2),
+            zIndex:9999
         }
     });
 
@@ -44,8 +45,8 @@ const ChronometerDisplay: React.FC<Props> = ({ totalTime, elapsedTime }) => {
         transform: [
             {
                 scale: animatedValue.interpolate({
-                    inputRange: [0, totalTime],
-                    outputRange: [1, 0.1]
+                    inputRange: [0, 100],
+                    outputRange: [2, 1]
                 })
             }
         ]
@@ -54,10 +55,11 @@ const ChronometerDisplay: React.FC<Props> = ({ totalTime, elapsedTime }) => {
     return (
         <View style={barStyle.container}>
             <Animated.View style={[
-                barStyle.life, 
-                circleProgressStyle, 
-                { backgroundColor:interpolatedColor }
+                barStyle.life,
+                circleProgressStyle,
+                { backgroundColor: interpolatedColor }
             ]} />
+            <View><Text>{elapsedTime}</Text></View>
         </View>
     );
 };

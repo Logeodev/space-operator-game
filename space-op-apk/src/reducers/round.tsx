@@ -8,6 +8,11 @@ interface State {
     operationGregory? : OperationResult, 
 }
 
+interface randomResult {
+    id: number,
+    count: number
+}
+
 const initialState : State = {
     operationId:'',
     duration:-1,
@@ -29,7 +34,7 @@ const roundReducer = (state = initialState, action:any):State => {
                 operationGregory: setOperatonResult(action.payload.buttonResult, action.payload.switchResult)
             }
         case 'isOperationSucess': 
-            if(operationsResult())
+            //if()
             return {
                 ...state, 
 
@@ -61,6 +66,7 @@ const operationsResult = (state: State) : boolean => {
     const resultSwitch = state.operation?.result.resultSwitch
     const inputButton = state.operationGregory?.resultButton
     const inputSwitch = state.operationGregory?.resultSwitch
+    
 
     switch(resultButton?.order){
         case "order" : 
@@ -71,11 +77,12 @@ const operationsResult = (state: State) : boolean => {
         break;
 
         default :
-            return true
+            return false
             break;
     }
-
-    
+    if(resultSwitch && inputSwitch){
+        return verifySwitch(resultSwitch, inputSwitch) 
+    } 
 
     return false
 }
@@ -90,14 +97,39 @@ const verifyOrderedButton = (resultButton : resultButton, inputButton : resultBu
     return true
 }
 
-const verifySwitch = (resultSwitch: resultSwitch, inputSwitch : resultSwitch){
+const verifyRandomButton = (resultButton : resultButton, inputButton : resultButton) => {
+
+   // const obj = newResultRandom()
+
+}
+
+const newResultRandom = (resultButton : resultButton)  => {
+    const obj : randomResult [] = []
+    
+    //pour resultat = [2, 2, 3, 3]
+    resultButton.ids.map((r) => {
+        // SI obj = [2 : 1]
+       if(obj.find(t => t.id === r)){
+        const count = obj.find(t => t.id === r)?.count
+            count ? obj.concat([{ id: r, count : count + 1 }])
+                  : obj.concat([{ id: r, count : 1 }])
+       } else {
+            obj.concat([{ id: r, count : 1}])
+       }
+        
+    })
+}
+
+const verifySwitch = (resultSwitch: resultSwitch, inputSwitch : resultSwitch) : boolean => {
+    const result = {res : true}
     if(resultSwitch.ids.length != inputSwitch.ids.length){
-        return false
+        result.res = false
     } else {
-        resultSwitch.ids.forEach(s => {
-            
-        })
+        resultSwitch.ids.map(s => {
+            inputSwitch.ids.find(x => s) ? true : result.res = false;
+        })    
     }
+    return result.res
 }
 
 export default roundReducer;

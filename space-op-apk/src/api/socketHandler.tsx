@@ -46,6 +46,7 @@ export class SocketHandler {
                 store.dispatch(setGameRunning(true))
                 break;
             case "operation":
+                console.log("WS operation")
                 const opEvent = msgData as operationEvent;
                 store.dispatch(setTurn(opEvent.data.turn))
                 store.dispatch(setRole(opEvent.data.role))

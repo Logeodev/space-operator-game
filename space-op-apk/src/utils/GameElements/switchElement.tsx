@@ -23,9 +23,9 @@ const SwitchElement: React.FC<Props> = ({ id, valueType, value }) => {
   const resultButton = turn.operationGregory?.resultButton
   const resultSwitch = turn.operationGregory?.resultSwitch
 
-  console.log("SWITCH RELOAD")
-  console.log("RES BT => ",resultButton)
-  console.log("RES SWITCH => ",resultSwitch)
+  // console.log("SWITCH RELOAD")
+  // console.log("RES BT => ",resultButton)
+  // console.log("RES SWITCH => ",resultSwitch)
 
   const handleSwitchToggle = (newValue: boolean) => {
     setSwitchValue(newValue);

@@ -18,8 +18,8 @@ const ButtonElement: React.FC<Props> = ({ id, valueType, value }) => {
     const resultButton = turn.operationGregory?.resultButton
     const resultSwitch = turn.operationGregory?.resultSwitch
 
-    console.log("RES BT => ",resultButton)
-    console.log("RES SWITCH => ",resultSwitch)
+    // console.log("RES BT => ",resultButton)
+    // console.log("RES SWITCH => ",resultSwitch)
 
 
     const buttonPressed = (resultButtonStore : resultButton, resultSwitchStore : resultSwitch) => {
@@ -37,7 +37,7 @@ const ButtonElement: React.FC<Props> = ({ id, valueType, value }) => {
         
     }
 
-    const size = 50;
+    const size = 70;
     const style = StyleSheet.create({
         buttonStyle: {
             alignSelf:'center',
