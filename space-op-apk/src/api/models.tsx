@@ -51,14 +51,31 @@ export const operatorFinished = (success: boolean): operatorFinished => ({
 
 // ----------------- Server -> CLIENT ---------------------\\
 
-interface resultButton {
+export interface resultButton {
   order: "random" | "order",
-  ids: Number[]
+  ids: number[]
 }
 
-interface resultSwitch {
-  ids: Number[]
+export const addResultButton = (order : "random" | "order" = "order", result : number):resultButton => ({
+  order : order,
+  ids : [result]
+})
+
+
+export const addResultsButton = (order : "random" | "order" = "order", result : number []): resultButton => ({
+  order : order,
+  ids : result
+})
+
+
+
+export interface resultSwitch {
+  ids: number[]
 }
+
+export const addResultSwitch = (ids : number []) : resultSwitch => ({
+  ids : ids
+})
 
 interface element {
   type: "Switch" | "Button",
@@ -67,10 +84,15 @@ interface element {
   value: String | Number,
 }
 
-interface OperationResult {
+export interface OperationResult {
   resultButton: resultButton,
   resultSwitch: resultSwitch,
 }
+
+export const setOperatonResult = (resultButton : resultButton, resultSwitch : resultSwitch) : OperationResult => ({
+  resultButton : resultButton,
+  resultSwitch: resultSwitch
+})
 
 export interface Operation {
   elements: element[],

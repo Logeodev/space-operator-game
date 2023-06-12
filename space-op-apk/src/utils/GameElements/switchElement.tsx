@@ -1,28 +1,59 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
 import newShade from '../newShade';
-
+import { addResultButton, addResultsButton,  setOperatonResult, addResultSwitch} from '../../api/models';
+import { setOperationGregory } from '../../reducers/round';
+import { useAppSelector, useAppDispatch } from '../../reducers/store';
+import { resultButton, resultSwitch } from '../../api/models';
 interface Props {
   id: number,
   valueType: "string" | "color",
-  value: string
+  value: String
 }
 
 const SwitchElement: React.FC<Props> = ({ id, valueType, value }) => {
   const [switchValue, setSwitchValue] = useState(false);
 
-  const colorBright = valueType === 'color'? value : '#00ff00'
-  const colorDark = valueType === 'color'? newShade(value,-120) : '#70a070'
+  const colorBright = valueType === 'color'? value.toString() : '#00ff00'
+  const colorDark = valueType === 'color'? newShade(value.toString(),-120) : '#70a070'
+
+  const dispatch = useAppDispatch()
+  const turn = useAppSelector((state) => state.turn)
+
+  const resultButton = turn.operationGregory?.resultButton
+  const resultSwitch = turn.operationGregory?.resultSwitch
+
+  console.log("SWITCH RELOAD")
+  console.log("RES BT => ",resultButton)
+  console.log("RES SWITCH => ",resultSwitch)
 
   const handleSwitchToggle = (newValue: boolean) => {
     setSwitchValue(newValue);
+    resultButton != undefined && resultSwitch != undefined ? 
+    switchPressed(resultButton, resultSwitch)
+    : console.log("error")
   };
 
+  const switchPressed = (resultButtonStore : resultButton, resultSwitchStore : resultSwitch) => {
+    console.log("WE GOT IN Switch PRESSED")
+    if(resultButton && resultSwitch){
+      console.log(resultButton)
+      console.log(addResultSwitch(resultSwitch.ids.concat([id])))
+    }
+    resultButton != undefined && resultSwitch != undefined ? 
+    dispatch(
+        setOperationGregory(resultButton, addResultSwitch(resultSwitch.ids.concat([id])))
+        )
+        : console.log("err")
+} 
+
+  const size = 90;
   const switchStyle = StyleSheet.create({
     background: {
+      alignSelf:'center',
       margin: 10,
-      width: 110,
-      height: 50,
+      width: size,
+      height: Math.floor(size/2),
       borderRadius: 2,
       backgroundColor: '#aaaaaa',
       shadowColor: 'black',

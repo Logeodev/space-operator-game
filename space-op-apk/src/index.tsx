@@ -7,6 +7,7 @@ import generateUniqueID from './utils/UID';
 import React, { useEffect } from 'react';
 import { useAppDispatch } from './reducers/store';
 import { setPlayerId } from './reducers/player';
+import { GamePage } from './components/gamePage';
 
 
 const playerId = generateUniqueID();
@@ -25,7 +26,8 @@ export default function SapceOperatorGame() {
         <Route path="/" element={<MainMenu />} />
         <Route path="/create-game" element={<CreateGameScreen />} />
         <Route path="/join-game" element={<JoinGameScreen />}/>
-    </Routes>
+        <Route path="/game" element={<GamePage />}/>
+      </Routes>
     </NativeRouter>
   );
 }

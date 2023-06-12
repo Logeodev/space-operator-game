@@ -21,9 +21,9 @@ const initialState : gameState = {
 const gameReducer = (state = initialState, action:any):gameState => {
     switch (action.type) {
         case 'SET_ID':
-            return { ...state, gameId: action.payload}
+            return { ...state, gameId: action.payload }
         case 'SET_ID2':
-            return { ...state, gameId: action.payload}
+            return { ...state, gameId: action.payload }
         case 'NEW_PLAYER':
             return { ...state, players: action.payload }
         case 'START_STOP':

@@ -39,8 +39,8 @@ export class SocketHandler {
         const msgData = JSON.parse(msg.data) as Message;
         switch (msgData.type) {
             case "players":
-                const players = msgData.data as Player[]
-                store.dispatch(updatePlayers(players))
+                const players = msgData.data as {"players": Player[]}
+                store.dispatch(updatePlayers(players.players))
                 break;
             case "start":
                 store.dispatch(setGameRunning(true))

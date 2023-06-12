@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, TextInput } from 'react-native';
 import styles from '../utils/style';
 import { Link } from 'react-router-native';
 import {setPseudo } from '../reducers/player';
-import { setGameId2, updatePlayers } from '../reducers/game';
+import { setGameId2 } from '../reducers/game';
 import { useAppDispatch, useAppSelector } from '../reducers/store';
 import { handleCreateGame } from '../api/createGame';
-import ButtonElement from '../utils/GameElements/buttonElement';
-import SwitchElement from '../utils/GameElements/switchElement';
-import LifeBarElement from '../utils/GameElements/lifeBar';
 import { playerJoin } from '../api/models';
 import { wsHandler } from '..';
+import ChronometerDisplay from '../utils/GameElements/chronometer';
 
 const MainMenu = () => {
  const dispatch = useAppDispatch();
  const pseudo = useAppSelector(state => state.player.pseudo)
  const playerId = useAppSelector(state => state.player.playerId)
-
-  const [temp, setTemp] = useState(100)
 
   return (
     <View style={styles.container}>
@@ -42,12 +38,10 @@ const MainMenu = () => {
       </View>
 
       <View style={styles.btnSecondary}>
-        <Link to='/' onPress={()=>setTemp(temp-10)}><Text>Quitter</Text></Link>
+        <Link to='/'><Text>Quitter</Text></Link>
       </View>
 
-      <LifeBarElement value={temp} />
-      <ButtonElement id={0} valueType='number' value={2} />
-      <SwitchElement id={1} valueType='color' value='#ff0000' />
+      <ChronometerDisplay totalTime={40} elapsedTime={0}/>
     </View>
   );
 };
