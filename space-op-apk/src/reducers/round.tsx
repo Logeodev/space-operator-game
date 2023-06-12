@@ -8,7 +8,7 @@ interface State {
     operationGregory? : OperationResult, 
 }
 
-interface randomResult {
+interface randomResultCount {
     id: number,
     count: number
 }
@@ -33,15 +33,10 @@ const roundReducer = (state = initialState, action:any):State => {
                 ...state,
                 operationGregory: setOperatonResult(action.payload.buttonResult, action.payload.switchResult)
             }
-        case 'isOperationSucess': 
-            //if()
-            return {
-                ...state, 
 
-            }
         default:
             return state
-    }
+    }  
 }
 
 export const setNewOperation = (opId:string, op:Operation, duration:number) => ({
@@ -66,25 +61,29 @@ const operationsResult = (state: State) : boolean => {
     const resultSwitch = state.operation?.result.resultSwitch
     const inputButton = state.operationGregory?.resultButton
     const inputSwitch = state.operationGregory?.resultSwitch
-    
+    const result = { buttonSucess: true, switchSucess: true }
 
     switch(resultButton?.order){
         case "order" : 
-            resultButton && inputButton ? verifyOrderedButton(resultButton, inputButton)
+            resultButton && inputButton ? 
+            result.buttonSucess = verifyOrderedButton(resultButton, inputButton)
             : console.error("THERE SI NOT RESULT BUTTON")
             break;
         case "random" : 
-        break;
-
+            resultButton && inputButton ? 
+            result.buttonSucess = verifyRandomButton(resultButton, inputButton)
+            : console.error("THERE SI NOT RESULT BUTTON")
+            break;
         default :
-            return false
+            result.buttonSucess = true
             break;
     }
+
     if(resultSwitch && inputSwitch){
-        return verifySwitch(resultSwitch, inputSwitch) 
+        result.switchSucess = verifySwitch(resultSwitch, inputSwitch) 
     } 
 
-    return false
+    return result.buttonSucess && result.switchSucess
 }
 
 const verifyOrderedButton = (resultButton : resultButton, inputButton : resultButton): boolean => {
@@ -98,38 +97,45 @@ const verifyOrderedButton = (resultButton : resultButton, inputButton : resultBu
 }
 
 const verifyRandomButton = (resultButton : resultButton, inputButton : resultButton) => {
+   const result = { sucess : true }
+   const resultCount : randomResultCount [] = newResultRandom(resultButton)
+   resultCount.map(r => {
+        const count : number = inputButton.ids.filter(i => r.id).length
+        if(count != r.count){
+            result.sucess = false
+        }
+   })
+   return result.sucess
+   
 
-   // const obj = newResultRandom()
 
 }
 
-const newResultRandom = (resultButton : resultButton)  => {
-    const obj : randomResult [] = []
+const newResultRandom = (resultButton : resultButton) : randomResultCount []  => {
+    const obj : randomResultCount [] = []
     
-    //pour resultat = [2, 2, 3, 3]
     resultButton.ids.map((r) => {
-        // SI obj = [2 : 1]
        if(obj.find(t => t.id === r)){
         const count = obj.find(t => t.id === r)?.count
             count ? obj.concat([{ id: r, count : count + 1 }])
-                  : obj.concat([{ id: r, count : 1 }])
+                  : obj.concat([{ id: r, count : 1 }]); console.error("round => newResultRandom => not supose to happend");
        } else {
             obj.concat([{ id: r, count : 1}])
-       }
-        
+       }   
     })
+    return obj
 }
 
 const verifySwitch = (resultSwitch: resultSwitch, inputSwitch : resultSwitch) : boolean => {
-    const result = {res : true}
+    const result = {sucess : true}
     if(resultSwitch.ids.length != inputSwitch.ids.length){
-        result.res = false
+        result.sucess = false
     } else {
         resultSwitch.ids.map(s => {
-            inputSwitch.ids.find(x => s) ? true : result.res = false;
+            inputSwitch.ids.find(x => s) ? true : result.sucess = false;
         })    
     }
-    return result.res
+    return result.sucess
 }
 
 export default roundReducer;
