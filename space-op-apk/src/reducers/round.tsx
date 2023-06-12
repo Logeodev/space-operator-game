@@ -65,16 +65,17 @@ const operationsResult = (state: State) : boolean => {
     switch(resultButton?.order){
         case "order" : 
             resultButton && inputButton ? verifyOrderedButton(resultButton, inputButton)
-            : console.error("ATTENTION SAH MARCHE PAS")
+            : console.error("THERE SI NOT RESULT BUTTON")
             break;
         case "random" : 
-
         break;
 
         default :
             return true
             break;
     }
+
+    
 
     return false
 }
@@ -87,6 +88,16 @@ const verifyOrderedButton = (resultButton : resultButton, inputButton : resultBu
         }
     })
     return true
+}
+
+const verifySwitch = (resultSwitch: resultSwitch, inputSwitch : resultSwitch){
+    if(resultSwitch.ids.length != inputSwitch.ids.length){
+        return false
+    } else {
+        resultSwitch.ids.forEach(s => {
+            
+        })
+    }
 }
 
 export default roundReducer;

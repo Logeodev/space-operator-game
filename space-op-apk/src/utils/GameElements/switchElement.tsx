@@ -40,11 +40,16 @@ const SwitchElement: React.FC<Props> = ({ id, valueType, value }) => {
       console.log(resultButton)
       console.log(addResultSwitch(resultSwitch.ids.concat([id])))
     }
+
+    if(resultButton?.ids.find( id => id)){
+      delete resultButton.ids[resultButton.ids.findIndex(id => id)]
+    }
+
     resultButton != undefined && resultSwitch != undefined ? 
     dispatch(
         setOperationGregory(resultButton, addResultSwitch(resultSwitch.ids.concat([id])))
         )
-        : console.log("err")
+        : console.error("err")
 } 
 
   const size = 90;
