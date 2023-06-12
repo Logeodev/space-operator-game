@@ -18,26 +18,18 @@ const ButtonElement: React.FC<Props> = ({ id, valueType, value }) => {
     const resultButton = turn.operationGregory?.resultButton
     const resultSwitch = turn.operationGregory?.resultSwitch
 
-    // console.log("RES BT => ",resultButton)
-    // console.log("RES SWITCH => ",resultSwitch)
-
 
     const buttonPressed = (resultButtonStore : resultButton, resultSwitchStore : resultSwitch) => {
-        console.log("WE GOT IN BUTTON PRESSED")
-
-        if(resultButton && resultSwitch){
-            console.log(addResultsButton(resultButton.order ,resultButton.ids.concat([id])))
-            console.log(resultSwitch)
-
-            console.log("result => ")
-            console.log(turn.operation?.result)
-        }
-        resultButton != undefined && resultSwitch ? 
-        dispatch(
-            setOperationGregory(addResultsButton(resultButton.order ,resultButton.ids.concat([id])), resultSwitch)
-            )
-        : console.log("error")
-        
+        if(resultButton != undefined && resultSwitch != undefined){
+            dispatch(
+                setOperationGregory(
+                    addResultsButton(
+                                resultButton.order, 
+                                resultButton.ids.concat([id])
+                                    ),
+                    resultSwitch)
+                )
+        }    
     }
 
     const size = 70;

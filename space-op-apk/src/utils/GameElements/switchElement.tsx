@@ -28,8 +28,6 @@ const SwitchElement: React.FC<Props> = ({ id, valueType, value }) => {
   
   if(resultButton != undefined && resultSwitch != undefined){
     switchPressed(resultButton, resultSwitch)
-    console.log("result => ")
-    console.log(turn.operation?.result)
   }      
   
   };
@@ -42,8 +40,7 @@ const SwitchElement: React.FC<Props> = ({ id, valueType, value }) => {
                                                  )
                                   )
               )
-      console.log(resultSwitchStore.ids.filter(r => r != undefined))
-
+      
     } else {
       dispatch(setOperationGregory(
                                   resultButtonStore, 
@@ -52,11 +49,10 @@ const SwitchElement: React.FC<Props> = ({ id, valueType, value }) => {
                                                  )
                                   )
               )
-      console.log(resultSwitchStore.ids.concat([id]))
+    
     
     }
 
-  console.log(turn.operation?.result)
 
 
 } 

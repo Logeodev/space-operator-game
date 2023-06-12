@@ -67,12 +67,12 @@ export const operationsResult = (state: State) : boolean => {
         case "order" : 
             resultButton && inputButton ? 
             result.buttonSucess = verifyOrderedButton(resultButton, inputButton)
-            : console.error("THERE SI NOT RESULT BUTTON")
+            : console.error("roundStore : no resultBustton found")
             break;
         case "random" : 
             resultButton && inputButton ? 
             result.buttonSucess = verifyRandomButton(resultButton, inputButton)
-            : console.error("THERE SI NOT RESULT BUTTON")
+            : console.error("roundStore : no resultBustton found")
             break;
         default :
             result.buttonSucess = true
@@ -89,7 +89,6 @@ export const operationsResult = (state: State) : boolean => {
 }
 
 const verifyOrderedButton = (resultButton : resultButton, inputButton : resultButton): boolean => {
-    console.log("veriffy ordered button")
     const result = { sucess : true}
     if(resultButton.ids.length != inputButton.ids.length){
         result.sucess = false
@@ -98,7 +97,6 @@ const verifyOrderedButton = (resultButton : resultButton, inputButton : resultBu
         resultButton.ids.forEach((id, index) => {
             console.log(index)
             if(resultButton.ids[index] != inputButton.ids[index]){
-                console.log(`wrong button on rank : ${index} ! Button id : ${id}`)
                 result.sucess = false
             }
         })
@@ -107,27 +105,19 @@ const verifyOrderedButton = (resultButton : resultButton, inputButton : resultBu
 }
 
 const verifyRandomButton = (resultButton : resultButton, inputButton : resultButton) => {
-    console.log("veriffy random button")
-    console.log("INPUT IDS => ")
-    console.log(inputButton.ids)
-    console.log(`result len : ${resultButton.ids.length} | input len : ${inputButton.ids.length}`)
 
     const result = { sucess : true }
     if(resultButton.ids.length === inputButton.ids.length){
         const resultCount : randomResultCount [] = newResultRandom(resultButton)
         resultCount.map(r => {
                 const count : number = inputButton.ids.filter(i => i === r.id).length
-                console.log(`for id : ${r.id} count : ${r.count}`)
-                console.log(`count found : ${count}`)
                 if(count != r.count){
-                    console.log(`too many button on id : ${r.id}`)
                     result.sucess = false
                 }
         })
     } else {
         result.sucess = false
     }
-   console.log("random button return => ", result.sucess)
    return result.sucess
    
 
@@ -136,23 +126,18 @@ const verifyRandomButton = (resultButton : resultButton, inputButton : resultBut
 
 const newResultRandom = (resultButton : resultButton) : randomResultCount []  => {
     const resultsCount : randomResultCount [] = []
-    console.log("sorting => New result button")
     resultButton.ids.map((rId) => {
         //Filter ou find faut voir 
        if(resultsCount.find(resultCount => resultCount.id === rId)){
-        console.log(`adding count too result : ${rId}`)
         const count : number | undefined = resultsCount.find(t => t.id === rId)?.count
         if(count){
-            console.log("count found => ", count)
             resultsCount[resultsCount.findIndex(o => o.id === rId)] = { id: rId, count: count + 1 }
         }          
        } else {
-            console.log("new result found id => ", rId)
+
             resultsCount.push({ id: rId, count: 1 })
        }   
     })
-    console.log("ORDER OF BUTTON => ")
-    console.log(resultsCount)
     return resultsCount
 }
 
@@ -162,8 +147,6 @@ const verifySwitch = (resultSwitch: resultSwitch, inputSwitch : resultSwitch) : 
         result.sucess = false
     } else { 
         resultSwitch.ids.map(resultID => {
-            console.log("testing switch => ", resultID)
-            console.log(inputSwitch.ids.find(inputID => inputID === resultID))
             const match = inputSwitch.ids.find(inputID => inputID === resultID)
             if(match != undefined){
                 if(!(match >= 0)){
@@ -173,7 +156,6 @@ const verifySwitch = (resultSwitch: resultSwitch, inputSwitch : resultSwitch) : 
                 result.sucess = false
             }
         })   
-        console.log("switches are right ", result.sucess)
     }
     return result.sucess
 }
