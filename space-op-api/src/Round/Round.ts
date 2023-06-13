@@ -65,7 +65,7 @@ export class Round {
     }
 
     getRoundTime() : number {
-        return 40 - this.roundNumber
+        return 25 - this.roundNumber
     }
 
 
