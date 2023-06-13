@@ -28,6 +28,7 @@ const gameRoutes = (app: Express) => {
     if (gameInstances.length > 0) {
       console.log("gameInstances > 0 => ",gameInstances.length)
       if (gameInstances.findIndex(g => g.getGameId() === gameId) != -1) {
+        gameInstances.find(g => g.getGameId() === gameId)?.unReadyPlayer()
         gameInstances.splice(gameInstances.findIndex(g => g.getGameId() === gameId), 1)
         res.status(200).json({ message: 'Partie supprimée' })
       } else {

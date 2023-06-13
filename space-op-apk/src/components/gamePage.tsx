@@ -23,6 +23,7 @@ export const GamePage = () => {
     const [time, setTime] = useState(currentRound.duration)
     const victory = useAppSelector(state => state.game.victory)
     const gameId = useAppSelector(state => state.game.gameId)
+    const operationId = useAppSelector(state => state.turn.operationId)
 
     const resetGame = () => {
         console.log("=================== RESETING GAME =================")
@@ -58,7 +59,8 @@ export const GamePage = () => {
     } else {
         return <View style={styles.container}>
             {DisplayGameState(roundNumber, vesselIntegrity, currentRound.duration, time, currentRound.operationId)}
-            {
+            {   operationId === '' ? <View><Text>Waiting...</Text></View> 
+                :
                 role === Role.Instructor ?
                     <View>
                         <Text style={styles.label}>
@@ -66,7 +68,6 @@ export const GamePage = () => {
                         </Text>
                     </View>
                     :
-                    role === Role.Operator ?
                         <View>
                             <View style={style.operations}>
                                 <ScrollView horizontal={true} contentContainerStyle={style.scroll}>
@@ -77,8 +78,8 @@ export const GamePage = () => {
                                 </ScrollView>
                             </View>
                         </View>
-                        :
-                        <View><Text>Waiting...</Text></View>
+                        
+                        
             }
         </View>
     }

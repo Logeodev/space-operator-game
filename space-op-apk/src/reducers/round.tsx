@@ -4,7 +4,7 @@ import { initNumArray } from "../utils/init";
 export interface State {
     operationId:string,
     duration:number,
-    operation?:Operation,
+    operation?:Operation | undefined,
     operationGregory? : OperationResult, 
 }
 
@@ -35,6 +35,14 @@ const roundReducer = (state = initialState, action:any):State => {
                 ...state,
                 operationGregory: setOperationResult(action.payload.buttonResult, action.payload.switchResult)
             }
+        case 'RESET_OP':
+            return {
+                ...state, 
+                operationId:'',
+                duration:-1,
+                operation: undefined,
+                operationGregory: setOperationResult(addResultsButton("order", initNumArray), addResultSwitch(initNumArray)),
+            }
 
         default:
             return state
@@ -55,6 +63,13 @@ export const setOperationGregory = (buttonResult : resultButton, switchResult : 
     payload:{
         buttonResult:buttonResult,
         switchResult:switchResult
+    }
+})
+
+export const resetOperation = () => ({
+    type:'RESET_OP',
+    payload:{
+
     }
 })
 

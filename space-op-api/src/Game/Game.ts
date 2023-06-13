@@ -95,8 +95,12 @@ export class Game {
       }
    }
 
+   unReadyPlayer() {
+      this.getPlayers().map(p => p.setStatus(false))
+   }
+
    finishRound() {
-      if (this.turn < 1 && this.integrity > 0) {
+      if (this.turn < 5 && this.integrity > 0) {
          this.passTurn()
          this.startRound()
       }

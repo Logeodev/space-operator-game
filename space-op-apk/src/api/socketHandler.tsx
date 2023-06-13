@@ -1,9 +1,10 @@
 import { setGameRunning, setIntegrity, setTurn, setVictory, updatePlayers } from "../reducers/game"
 import { setRole } from "../reducers/player"
-import { setNewOperation } from "../reducers/round"
+import { setNewOperation, resetOperation } from "../reducers/round"
 import store from "../reducers/store"
 import { connStringWs } from "./connection"
 import { Integrity, Player, operationEvent } from "./models"
+
 
 export interface Message {
     type:string,
@@ -54,6 +55,7 @@ export class SocketHandler {
                 break;
             case "integrity":
                 const integrityMessage = msgData as Integrity
+                store.dispatch(resetOperation())
                 store.dispatch(setIntegrity(integrityMessage.data.integrity))
                 break;
             case "victory":
