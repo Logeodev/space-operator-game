@@ -42,7 +42,7 @@ const ChronometerDisplay: React.FC<Props> = ({ time, totalTime }) => {
             {
                 scale: animatedValue.interpolate({
                     inputRange: [0, 100],
-                    outputRange: [0.1, 1]
+                    outputRange: [0, 1]
                 })
             }
         ],

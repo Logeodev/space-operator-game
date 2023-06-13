@@ -43,10 +43,10 @@ export const GamePage = () => {
             :
                 role === Role.Instructor?
                 <View style={style.operations}>
-                    <ScrollView>
+                    <ScrollView horizontal={true} contentContainerStyle={{width:350, display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
                     {
                         currentRound.operation&&
-                        displayOperationElements(currentRound.operation)
+                        displayOperationElements(currentRound.operation).map(e => <View style={{maxWidth:120}}>{e}</View>)
                     }
                     </ScrollView>
                 </View>
