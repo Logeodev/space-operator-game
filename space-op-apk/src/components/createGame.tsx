@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../utils/style';
 import { Link, useNavigate } from 'react-router-native';
-import { useAppSelector } from '../reducers/store';
+import { useAppDispatch, useAppSelector } from '../reducers/store';
 import { handleKillGame } from '../api/createGame';
 import { wsHandler } from '..';
 import { Player, gameStart } from '../api/models';
 import { Octicons } from '@expo/vector-icons';
 import handlePlayerReady from '../api/playerReady';
-
+import { killGame } from '../reducers/game';
 
 const CreateGameScreen = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
     const gameId = useAppSelector(state => state.game.gameId)
     const playerId = useAppSelector((state) => state.player.playerId)
     const players: Player[] = useAppSelector((state) => state.game.players)
@@ -22,15 +23,14 @@ const CreateGameScreen = () => {
         gameIsStarted && navigate("/game")
     }, [gameIsStarted])
 
+    const isPlayersReady = players.filter(t => t.status === true).length != players.length
 
-    //console.log("Game Start : from Create Game Page =>")
-    console.log(turn.operationId)
-    if (turn.operation) {
-        console.log(turn.operation)
+    const resetGame = () => {
+        console.log("============================== RESET GAME ========================")
+        console.log(gameId)
+        handleKillGame(gameId)
+        dispatch(killGame())
     }
-
-    const isPlayerReady = players.filter(t => t.status === true).length != players.length
-
 
     return (
         <View style={styles.container}>
@@ -60,13 +60,13 @@ const CreateGameScreen = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.btnPrimary}>
-                <TouchableOpacity disabled={!isPlayerReady} onPress={() => wsHandler.sendMessage(gameStart(gameId))}>
+                <TouchableOpacity disabled={isPlayersReady} onPress={() => wsHandler.sendMessage(gameStart(gameId))}>
                     <Text>Démarrer la partie</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.btnSecondary}>
-                <Link to='/' onPress={() => handleKillGame(gameId)}><Text>Retour</Text></Link>
+                <Link to='/' onPress={() => resetGame()}><Text>Retour</Text></Link>
             </View>
         </View>
     );

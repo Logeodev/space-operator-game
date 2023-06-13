@@ -13,10 +13,6 @@ interface Props {
 
 const SwitchElement: React.FC<Props> = ({ id, valueType, value }) => {
 
-  useEffect(() => {
-    setSwitchValue(false)
-  }, [])
-
   const [switchValue, setSwitchValue] = useState(false);
 
   const colorBright = valueType === 'color' ? value.toString() : '#00ff00'
@@ -36,6 +32,10 @@ const SwitchElement: React.FC<Props> = ({ id, valueType, value }) => {
     }
 
   };
+
+  useEffect(() => {
+    setSwitchValue(false)
+  }, [turn.operation])
 
   const switchPressed = (inputButton: resultButton, inputSwitch: resultSwitch, currentSwitchValue : boolean) => {
 

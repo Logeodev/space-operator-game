@@ -33,6 +33,15 @@ const gameReducer = (state = initialState, action:any):gameState => {
             return { ...state, vesselLife:action.payload }
         case 'VICTORY':
             return { ...state, victory:action.payload, started:false }
+        case 'KILL_GAME':
+            return { ...state, 
+                gameId:  '',
+                players: [],
+                vesselLife: 100,
+                started:false,
+                currentTurn:1, 
+                victory: undefined
+            }
         default:
             return state
     }
@@ -66,6 +75,12 @@ export const setIntegrity = (integrity:number) => ({
 export const setVictory = (victory:boolean) => ({
     type:'VICTORY',
     payload:victory
+})
+
+export const killGame = () => ({
+    type:'KILL_GAME',
+    payload: {
+    }
 })
 
 export default gameReducer;
