@@ -40,7 +40,7 @@ export const GamePage = () => {
     if (victory !== undefined){
         const text = victory? "VICTORY !":"OH NOOOOOoooo......"
         return <View style={styles.container}>
-            <Text style={{fontSize:40, fontWeight:'bold'}}>{text}</Text>
+            <Text style={{fontSize:40, fontWeight:'bold', marginBottom:50}}>{text}</Text>
             <View style={styles.btnPrimary}><Link to='/'><Text>Back to menu</Text></Link></View>
         </View>
     } else {
