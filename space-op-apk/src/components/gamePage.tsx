@@ -7,6 +7,9 @@ import { Operation, Role } from "../api/models"
 import ButtonElement from "../utils/GameElements/buttonElement"
 import SwitchElement from "../utils/GameElements/switchElement"
 import ChronometerDisplay from "../utils/GameElements/chronometer"
+import { TouchableOpacity } from "react-native"
+import { operationsResult } from "../reducers/round"
+import { wsHandler } from ".."
 
 export const GamePage = () => {
     const vesselIntegrity = useAppSelector(state => state.game.vesselLife)
