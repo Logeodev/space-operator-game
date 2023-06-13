@@ -12,29 +12,27 @@ export const GamePage = () => {
     const vesselIntegrity = useAppSelector(state => state.game.vesselLife)
     const currentRound = useAppSelector(state => state.turn)
     const role = useAppSelector(state => state.player.role)
-    const time = {time:Date.now()}
+    const [time, setTime] = useState(currentRound.duration)
     
     useEffect(() => {
-        console.log('setting time')
-        time.time = Date.now()
-        setInterval(() => {
-            if (time.time >= 0) {
-                console.log(time)
-
-            } else if (time.time === 0) {
-                //End of turn 
-                console.log(`over : ${time}`)
-            } else if (time.time === -1) {
-                console.log('initial time')
-            }
-       }, 1000);
+        setTime(currentRound.duration)
     }, [currentRound.duration])
+
+    useEffect(() => {
+        if (time <= 0) {
+          setTime(-1)
+          console.log('Timer over')
+          return ()=>clearInterval(timer)
+        }
+        const timer = setInterval(() => {
+          setTime(time-0.1)
+        }, 100);
+        return ()=>clearInterval(timer)
+      }, [time])
     
     return <View style={styles.container}>
         <LifeBarElement value={vesselIntegrity}/>
-        {
-            <ChronometerDisplay totalTime={currentRound.duration} time={time.time}/>
-        }
+        <ChronometerDisplay totalTime={currentRound.duration} time={time}/>
         {
             role === Role.Operator?
             <View>

@@ -16,7 +16,7 @@ interface randomResultCount {
 const initialState : State = {
     operationId:'',
     duration:-1,
-    operationGregory: setOperatonResult(addResultsButton("order", initNumArray), addResultSwitch(initNumArray))
+    operationGregory: setOperatonResult(addResultsButton("order", initNumArray), addResultSwitch(initNumArray)),
 }
 
 const roundReducer = (state = initialState, action:any):State => {
@@ -26,7 +26,7 @@ const roundReducer = (state = initialState, action:any):State => {
                 ...state, 
                 operation:action.payload.operation, 
                 operationId:action.payload.id,
-                duration:action.payload.duration
+                duration:action.payload.duration,
             }
         case 'SET_OPERATION_GREGORY':
             return {

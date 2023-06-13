@@ -17,49 +17,51 @@ const ChronometerDisplay: React.FC<Props> = ({ time, totalTime }) => {
         }).start();
     }, [elapsedTime]);
 
-    const interpolatedColor = animatedValue.interpolate({
-        inputRange: [0, 100],
-        outputRange: ["#ff0000", "#00eaff"]
-    });
-
-    const size = 100
+    const size = 70
     const barStyle = StyleSheet.create({
         container: {
             justifyContent: 'center',
             alignItems: 'center',
             height: size,
             width: size,
-            borderRadius: Math.floor(size / 2),
+            borderRadius: Math.floor(size/2),
             backgroundColor: "#a8a8a8"
         },
         life: {
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            borderRadius: Math.floor(size / 2),
-            zIndex:9999
+            height:size,
+            width:size
         }
     });
 
-    const circleProgressStyle = {
+    const circleProgress = {
+        borderRadius: animatedValue.interpolate({
+            inputRange: [0, 100],
+            outputRange: [Math.floor(size/0.05), Math.floor(size/2)]
+        }),
         transform: [
             {
                 scale: animatedValue.interpolate({
                     inputRange: [0, 100],
-                    outputRange: [2, 1]
+                    outputRange: [0.1, 1]
                 })
             }
-        ]
+        ],
+        color: animatedValue.interpolate({
+            inputRange: [0, 100],
+            outputRange: ["#ff0000", "#26ff00"]
+        })
     };
 
     return (
         <View style={barStyle.container}>
             <Animated.View style={[
                 barStyle.life,
-                circleProgressStyle,
-                { backgroundColor: interpolatedColor }
+                { 
+                    backgroundColor: circleProgress.color,
+                    transform:circleProgress.transform,
+                    borderRadius:circleProgress.borderRadius
+                }
             ]} />
-            <View><Text>{elapsedTime}</Text></View>
         </View>
     );
 };
