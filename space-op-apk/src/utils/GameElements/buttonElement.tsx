@@ -37,7 +37,7 @@ const ButtonElement: React.FC<Props> = ({ id, valueType, value }) => {
         buttonStyle: {
             alignSelf:'center',
             margin: 10,
-            width: size,
+            width: valueType==='color'? size : Math.floor(size*value.toString().length/3),
             height: size,
             borderRadius: 40,
             backgroundColor: valueType === 'color' ? value as string : '#0000FF',
