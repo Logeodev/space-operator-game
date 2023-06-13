@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, ScrollView, Dimensions } from "react-native"
 import { useState, useEffect } from "react"
-import { useAppSelector } from "../reducers/store"
+import { useAppDispatch, useAppSelector } from "../reducers/store"
 import LifeBarElement from "../utils/GameElements/lifeBar"
 import styles from "../utils/style"
 import { Operation, Role, operatorFinished } from "../api/models"
@@ -10,14 +10,26 @@ import ChronometerDisplay from "../utils/GameElements/chronometer"
 import { wsHandler } from ".."
 import { operationsResult } from "../reducers/rules"
 import { Link } from "react-router-native"
+import { handleKillGame } from "../api/createGame"
+import { killGame } from "../reducers/game"
+
 
 export const GamePage = () => {
+    const dispatch = useAppDispatch()
     const vesselIntegrity = useAppSelector(state => state.game.vesselLife)
     const currentRound = useAppSelector(state => state.turn)
     const roundNumber = useAppSelector(state => state.game.currentTurn)
     const role = useAppSelector(state => state.player.role)
     const [time, setTime] = useState(currentRound.duration)
     const victory = useAppSelector(state => state.game.victory)
+    const gameId = useAppSelector(state => state.game.gameId)
+
+    const resetGame = () => {
+        console.log("=================== RESETING GAME =================")
+        console.log(gameId)
+        handleKillGame(gameId)
+        dispatch(killGame())
+    }
 
     useEffect(() => {
         setTime(currentRound.duration)
@@ -40,8 +52,8 @@ export const GamePage = () => {
     if (victory !== undefined){
         const text = victory? "VICTORY !":"OH NOOOOOoooo......"
         return <View style={styles.container}>
-            <Text style={{fontSize:40, fontWeight:'bold', marginBottom:50}}>{text}</Text>
-            <View style={styles.btnPrimary}><Link to='/'><Text>Back to menu</Text></Link></View>
+            <Text style={{fontSize:40, fontWeight:'bold'}}>{text}</Text>
+            <View style={styles.btnPrimary}><Link onPress={() => resetGame()} to='/'><Text>Back to menu</Text></Link></View>
         </View>
     } else {
         return <View style={styles.container}>

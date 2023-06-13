@@ -19,18 +19,22 @@ const gameRoutes = (app: Express) => {
     res.status(200).json({ message: id })
   });
 
-  app.delete('/api/game/kill/:id', (req: Request, res: Response) => {
-    const { id } = req.params;
+  app.post('/api/game/kill', (req: Request, res: Response) => {
+    //const { id } = req.params;
+    console.log(req.body)
+    const { gameId } = req.body.data
+    //const gameId = req.url?.substring(5)
 
     if (gameInstances.length > 0) {
-      if (gameInstances.findIndex(g => g.getGameId() === id) != -1) {
-        gameInstances.splice(gameInstances.findIndex(g => g.getGameId() === id), 1)
+      console.log("gameInstances > 0 => ",gameInstances.length)
+      if (gameInstances.findIndex(g => g.getGameId() === gameId) != -1) {
+        gameInstances.splice(gameInstances.findIndex(g => g.getGameId() === gameId), 1)
         res.status(200).json({ message: 'Partie supprimée' })
       } else {
-        res.status(404).json({ message: 'Partie introuvable' })
+        res.status(304).json({ message: 'Partie introuvable' })
       }
     } else {
-      res.status(404).json({ message: 'Partie introuvable' })
+      res.status(304).json({ message: 'Partie introuvable' })
     }
   });
 }

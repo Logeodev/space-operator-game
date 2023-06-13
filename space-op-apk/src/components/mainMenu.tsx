@@ -13,6 +13,11 @@ const MainMenu = () => {
   const dispatch = useAppDispatch();
   const pseudo = useAppSelector(state => state.player.pseudo)
   const playerId = useAppSelector(state => state.player.playerId)
+  const game = useAppSelector(state => state.game)
+
+  const log = () => {
+    console.log(game)
+  }
 
   return (
     <View style={styles.container}>
@@ -37,7 +42,9 @@ const MainMenu = () => {
       </View>
 
       <View style={styles.btnSecondary}>
-        <Link to='/'><Text>Quitter</Text></Link>
+        <Link onPress={() => log(
+          
+        )} to='/'><Text>Quitter</Text></Link>
       </View>
     </View>
   );

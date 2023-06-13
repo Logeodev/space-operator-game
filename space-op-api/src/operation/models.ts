@@ -117,36 +117,36 @@ const resultSwitch = (
 //------------------------------------------------------------------------
 
 export const operations = [
-() => operationBuilder("Activer le switch pair et appuyer deux fois sur les boutons rouge", 
-    [ buttonElem(0, "color", "#FF0000"),
-      buttonElem(1, "color", "#00FF00"),
-      buttonElem(2, "color", "#0000FF"),
-      buttonElem(3, "color", "#FF0000"),
-      switchElem(4, "number", 4),
-      switchElem(5, "number", 3)
-    ], 
-    OperationResult(randomResultButton([0, 0, 3, 3]), resultSwitch([4]))
-    ), 
+// () => operationBuilder("Activer le switch pair et appuyer deux fois sur les boutons rouge", 
+//     [ buttonElem(0, "color", "#FF0000"),
+//       buttonElem(1, "color", "#00FF00"),
+//       buttonElem(2, "color", "#0000FF"),
+//       buttonElem(3, "color", "#FF0000"),
+//       switchElem(4, "number", 4),
+//       switchElem(5, "number", 3)
+//     ], 
+//     OperationResult(randomResultButton([0, 0, 3, 3]), resultSwitch([4]))
+//     ), 
 
-() => operationBuilder("Appuyer deux fois sur tout les boutons dont le resultat est pair", 
-[   buttonElem(0, "string", "13 x 2"),
-    buttonElem(1, "string", "2^9"),
-    buttonElem(2, "string", "3^127"),
-    buttonElem(3, "string", "13 x 1"),
-    ], 
-    OperationResult(randomResultButton([0, 0, 1, 1]), resultSwitch([]))
-    ), 
+// () => operationBuilder("Appuyer deux fois sur tout les boutons dont le resultat est pair", 
+// [   buttonElem(0, "string", "13 x 2"),
+//     buttonElem(1, "string", "2^9"),
+//     buttonElem(2, "string", "3^127"),
+//     buttonElem(3, "string", "13 x 1"),
+//     ], 
+//     OperationResult(randomResultButton([0, 0, 1, 1]), resultSwitch([]))
+//     ), 
 
-() => operationBuilder("Appuyer 1 fois sur les bouttons de couleur primaire et deux fois sur les autres", 
-[   buttonElem(0, "color", "#ffe436"),
-    buttonElem(1, "color", "#008020"),
-    buttonElem(2, "color", "#5b3c11"),
-    buttonElem(3, "color", "#067790"),
-    buttonElem(4, "color", "#f00020"),
-    buttonElem(5, "color", "#aa00bb"),
-    ], 
-    OperationResult(randomResultButton([0, 3, 4, 1, 1, 2, 2, 5, 5]), resultSwitch([]))
-    ), 
+// () => operationBuilder("Appuyer 1 fois sur les bouttons de couleur primaire et deux fois sur les autres", 
+// [   buttonElem(0, "color", "#ffe436"),
+//     buttonElem(1, "color", "#008020"),
+//     buttonElem(2, "color", "#5b3c11"),
+//     buttonElem(3, "color", "#067790"),
+//     buttonElem(4, "color", "#f00020"),
+//     buttonElem(5, "color", "#aa00bb"),
+//     ], 
+//     OperationResult(randomResultButton([0, 3, 4, 1, 1, 2, 2, 5, 5]), resultSwitch([]))
+//     ), 
     
 () => operationBuilder("Activer les switch correspondant à des boite de jeux vidéo inconnus !", 
 [
@@ -159,16 +159,16 @@ export const operations = [
     OperationResult(randomResultButton([]), resultSwitch([0, 2]))
     ), 
 
-() => operationBuilder("Appuyer sur ces chiffres romain dans l'ordre !", 
-[
-    buttonElem(0, "string", "XVII"),
-    buttonElem(1, "string", "XIV"),
-    buttonElem(2, "string", "XV"),
-    buttonElem(3, "string", "XIX"),
+// () => operationBuilder("Appuyer sur ces chiffres romain dans l'ordre !", 
+// [
+//     buttonElem(0, "string", "XVII"),
+//     buttonElem(1, "string", "XIV"),
+//     buttonElem(2, "string", "XV"),
+//     buttonElem(3, "string", "XIX"),
     
-    ], 
-    OperationResult(orderedResultButton([1, 2, 0, 3]), resultSwitch([]))
-    ), 
+//     ], 
+//     OperationResult(orderedResultButton([1, 2, 0, 3]), resultSwitch([]))
+//     ), 
 
 () => operationBuilder("Activer les switchs dont les chiffre romain son pair", 
 [
