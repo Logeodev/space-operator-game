@@ -5,7 +5,7 @@ interface gameState {
     players:Player[],
     vesselLife:number,
     started:boolean,
-    victory:boolean,
+    victory?:boolean,
     currentTurn:number
 }
 
@@ -15,7 +15,6 @@ const initialState : gameState = {
     vesselLife: 100,
     started:false,
     currentTurn:1,
-    victory:false
 }
 
 const gameReducer = (state = initialState, action:any):gameState => {

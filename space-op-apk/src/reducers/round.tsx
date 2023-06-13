@@ -21,12 +21,14 @@ const initialState : State = {
 
 const roundReducer = (state = initialState, action:any):State => {
     switch (action.type) {
-        case 'NEW_OP':
+        case 'NEW_OP': 
+            const initVal = setOperationGregory(addResultsButton(undefined, []), addResultSwitch([])).payload
             return { 
                 ...state, 
                 operation:action.payload.operation, 
                 operationId:action.payload.id,
                 duration:action.payload.duration,
+                operationGregory: {resultButton:initVal.buttonResult, resultSwitch:initVal.switchResult}
             }
         case 'SET_OPERATION_GREGORY':
             return {

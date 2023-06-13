@@ -19,7 +19,7 @@ const MainMenu = () => {
       <Text style={styles.title}>Space Operator</Text>
 
       <Text style={styles.label}>Nom du joueur:</Text>
-      <TextInput style={styles.textInput} onChangeText={e => { dispatch(setPseudo(e)); }} placeholder='Pseudo' />
+      <TextInput style={styles.textInput} onChangeText={e => { dispatch(setPseudo(e)); }} placeholder='Pseudo' defaultValue={pseudo} />
 
       <Text style={styles.label}>ID du joueur:</Text>
       <Text style={styles.text}>{playerId}</Text>

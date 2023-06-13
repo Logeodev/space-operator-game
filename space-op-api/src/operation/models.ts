@@ -145,7 +145,7 @@ export const operations = [
     buttonElem(4, "color", "#f00020"),
     buttonElem(5, "color", "#aa00bb"),
     ], 
-    OperationResult(randomResultButton([0, 1, 2, 3, 3, 4, 4, 5, 5]), resultSwitch([]))
+    OperationResult(randomResultButton([0, 3, 4, 1, 1, 2, 2, 5, 5]), resultSwitch([]))
     ), 
     
 () => operationBuilder("Activer les switch correspondant à des boite de jeux vidéo inconnus !", 
@@ -180,7 +180,7 @@ export const operations = [
     switchElem(5, "string", "XIII")
     
     ], 
-    OperationResult(randomResultButton([]), resultSwitch([0, 3, 4, 5]))
+    OperationResult(randomResultButton([]), resultSwitch([0, 3, 4]))
     ), 
 
 ]

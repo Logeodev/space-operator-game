@@ -37,13 +37,14 @@ export const operationsResult = (state: State) : boolean => {
 const verifyOrderedButton = (resultButton : resultButton, inputButton : resultButton): boolean => {
     const result = { sucess : true}
     if(resultButton.ids.length != inputButton.ids.length){
+        console.log("too many of less button pressed")
         result.sucess = false
     }
     if(result.sucess){
         resultButton.ids.forEach((id, index) => {
-            console.log(index)
             if(resultButton.ids[index] != inputButton.ids[index]){
                 result.sucess = false
+                console.log(`this button : ${id} isn't present at the right place`)
             }
         })
     }
@@ -51,17 +52,21 @@ const verifyOrderedButton = (resultButton : resultButton, inputButton : resultBu
 }
 
 const verifyRandomButton = (resultButton : resultButton, inputButton : resultButton) => {
-
+    console.log("========= Verify RANDOM ==============")
     const result = { sucess : true }
     if(resultButton.ids.length === inputButton.ids.length){
         const resultCount : randomResultCount [] = newResultRandom(resultButton)
         resultCount.map(r => {
+            console.log("testing button => ", r.id)
                 const count : number = inputButton.ids.filter(i => i === r.id).length
+                console.log("input button number : ", count)
                 if(count != r.count){
+                    console.log("to many or less button of this type")
                     result.sucess = false
                 }
         })
     } else {
+        console.log("to many or less button pressed")
         result.sucess = false
     }
    return result.sucess
@@ -81,12 +86,15 @@ const newResultRandom = (resultButton : resultButton) : randomResultCount []  =>
             resultsCount.push({ id: rId, count: 1 })
        }   
     })
+    console.log("result count => ")
+    console.log(resultsCount)
     return resultsCount
 }
 
 const verifySwitch = (resultSwitch: resultSwitch, inputSwitch : resultSwitch) : boolean => {
     const result = {sucess : true}
     if(resultSwitch.ids.length != inputSwitch.ids.length){
+        console.log("too many or less switch pressed")
         result.sucess = false
     } else { 
         resultSwitch.ids.map(resultID => {
@@ -94,6 +102,7 @@ const verifySwitch = (resultSwitch: resultSwitch, inputSwitch : resultSwitch) : 
             if(match != undefined){
                 if(!(match >= 0)){
                     result.sucess = false
+                    console.log("switch isn't present")
                 }
             } else {
                 result.sucess = false

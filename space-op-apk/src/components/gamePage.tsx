@@ -9,12 +9,15 @@ import SwitchElement from "../utils/GameElements/switchElement"
 import ChronometerDisplay from "../utils/GameElements/chronometer"
 import { wsHandler } from ".."
 import { operationsResult } from "../reducers/rules"
+import { Link } from "react-router-native"
 
 export const GamePage = () => {
     const vesselIntegrity = useAppSelector(state => state.game.vesselLife)
     const currentRound = useAppSelector(state => state.turn)
+    const roundNumber = useAppSelector(state => state.game.currentTurn)
     const role = useAppSelector(state => state.player.role)
     const [time, setTime] = useState(currentRound.duration)
+    const victory = useAppSelector(state => state.game.victory)
 
     useEffect(() => {
         setTime(currentRound.duration)
@@ -34,36 +37,46 @@ export const GamePage = () => {
         return () => clearInterval(timer)
     }, [time])
 
-    return <View style={styles.container}>
-        <ChronometerDisplay totalTime={currentRound.duration} time={time} />
-        <LifeBarElement value={vesselIntegrity} />
-        {
-            role === Role.Instructor ?
-                <View>
-                    <Text style={styles.label}>
-                        {currentRound.operation?.description}
-                    </Text>
-                </View>
-                :
-                role === Role.Operator ?
-                    <View style={style.operations}>
-                        <ScrollView horizontal={true} contentContainerStyle={style.scroll}>
-                            {
-                                currentRound.operation &&
-                                displayOperationElements(currentRound.operation).map(e => <View style={{ maxWidth: 110 }}>{e}</View>)
-                            }
-                        </ScrollView>
+    if (victory !== undefined){
+        const text = victory? "VICTORY !":"OH NOOOOOoooo......"
+        return <View style={styles.container}>
+            <Text style={{fontSize:40, fontWeight:'bold'}}>{text}</Text>
+            <View style={styles.btnPrimary}><Link to='/'><Text>Back to menu</Text></Link></View>
+        </View>
+    } else {
+        return <View style={styles.container}>
+            {DisplayGameState(roundNumber, vesselIntegrity, currentRound.duration, time, currentRound.operationId)}
+            {
+                role === Role.Instructor ?
+                    <View>
+                        <Text style={styles.label}>
+                            {currentRound.operation?.description}
+                        </Text>
                     </View>
                     :
-                    <View><Text>Waiting...</Text></View>
-        }
-    </View>
+                    role === Role.Operator ?
+                        <View>
+                            <View style={style.operations}>
+                                <ScrollView horizontal={true} contentContainerStyle={style.scroll}>
+                                    {
+                                        currentRound.operation &&
+                                        displayOperationElements(currentRound.operation).map(e => <View style={{ maxWidth: 110 }}>{e}</View>)
+                                    }
+                                </ScrollView>
+                            </View>
+                        </View>
+                        :
+                        <View><Text>Waiting...</Text></View>
+            }
+        </View>
+    }
+
 }
 
 const style = StyleSheet.create({
     operations: {
         width: '100%',
-        maxHeight: '80%'
+        maxHeight: '100%'
     },
     scroll: {
         width: Dimensions.get('window').width,
@@ -77,16 +90,31 @@ const displayOperationElements = (op: Operation) => {
     return op.elements.map(elmt => {
         if (elmt.type === "Button") {
             if (elmt.valueType === "color") {
-                return <ButtonElement id={elmt.id.valueOf()} value={elmt.value} valueType="color" />
+                return <ButtonElement key={ `${elmt.id.valueOf()} + ${elmt.type} `} id={elmt.id.valueOf()} value={elmt.value} valueType="color" />
             } else {
-                return <ButtonElement id={elmt.id.valueOf()} value={elmt.value} valueType="number" />
+                return <ButtonElement key={ `${elmt.id.valueOf()} + ${elmt.type} `} id={elmt.id.valueOf()} value={elmt.value} valueType="number" />
             }
         } else {
             if (elmt.valueType === "color") {
-                return <SwitchElement id={elmt.id.valueOf()} value={elmt.value.toString()} valueType="color" />
+                return <SwitchElement key={ `${elmt.id.valueOf()} + ${elmt.type} `} id={elmt.id.valueOf()} value={elmt.value.toString()} valueType="color" />
             } else {
-                return <SwitchElement id={elmt.id.valueOf()} value={elmt.value.toString()} valueType="string" />
+                return <SwitchElement key={ `${elmt.id.valueOf()} + ${elmt.type} `} id={elmt.id.valueOf()} value={elmt.value.toString()} valueType="string" />
             }
         }
     })
 }
+
+const DisplayGameState = (
+    turns: number,
+    integrity: number,
+    duration: number,
+    time: number,
+    code: string
+) => <View style={{ width: Dimensions.get('window').width * 0.9, display:'flex', flexDirection:'column'}}>
+        <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+            <ChronometerDisplay totalTime={duration} time={time} />
+            <Text style={{fontSize:30, fontWeight:'bold'}}>{turns}/20</Text>
+        </View>
+        <LifeBarElement value={integrity} />
+        <Text style={{fontSize:25, alignSelf:'center', marginTop:20}}>{code}</Text>
+    </View>

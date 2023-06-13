@@ -96,7 +96,7 @@ export class Game {
    }
 
    finishRound() {
-      if (this.turn <= 20 && this.integrity > 0) {
+      if (this.turn < 20 && this.integrity > 0) {
          this.passTurn()
          this.startRound()
       }

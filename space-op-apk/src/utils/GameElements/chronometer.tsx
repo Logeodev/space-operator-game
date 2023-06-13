@@ -21,6 +21,10 @@ const ChronometerDisplay: React.FC<Props> = ({ time, totalTime }) => {
     const barStyle = StyleSheet.create({
         container: {
             justifyContent: 'center',
+            margin:10,
+            borderColor:'black',
+            borderStyle:'solid',
+            borderWidth:1,
             alignItems: 'center',
             height: size,
             width: size,

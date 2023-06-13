@@ -60,7 +60,6 @@ const joinGame = function (playerData: playerJoin) {
 
 const startGame = function (message: gameStart) {
   const game = gameInstances.find((g: Game) => g.getGameId() === message.data.gameId)
- 
   if (game) {
     game.EventStartGame({
       type: "start"

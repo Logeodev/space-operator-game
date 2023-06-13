@@ -46,7 +46,7 @@ export class SocketHandler {
                 store.dispatch(setGameRunning(true))
                 break;
             case "operation":
-                console.log("WS operation")
+                console.log('operation')
                 const opEvent = msgData as operationEvent;
                 store.dispatch(setTurn(opEvent.data.turn))
                 store.dispatch(setRole(opEvent.data.role))
@@ -57,9 +57,11 @@ export class SocketHandler {
                 store.dispatch(setIntegrity(integrityMessage.data.integrity))
                 break;
             case "victory":
+                console.log('victory')
                 store.dispatch(setVictory(true))
                 break;
             case "destroyed":
+                console.log('destroyed')
                 store.dispatch(setVictory(false))
             default:
                 "Unknown response";

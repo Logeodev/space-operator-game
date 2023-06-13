@@ -20,6 +20,10 @@ const ButtonElement: React.FC<Props> = ({ id, valueType, value }) => {
 
 
     const buttonPressed = (resultButtonStore : resultButton, resultSwitchStore : resultSwitch) => {
+        console.log("Result => ")
+        console.log(turn.operation?.result)
+        console.log("Input => ")
+        console.log(`switch : ${resultSwitchStore.ids} button : ${resultButtonStore.ids}`)
         if(resultButton != undefined && resultSwitch != undefined){
             dispatch(
                 setOperationGregory(
@@ -29,7 +33,8 @@ const ButtonElement: React.FC<Props> = ({ id, valueType, value }) => {
                                     ),
                     resultSwitch)
                 )
-        }    
+        } 
+        console.log(`switch : ${resultSwitchStore.ids} button : ${resultButton?.ids.concat([id])}`)   
     }
 
     const size = 70;

@@ -29,6 +29,9 @@ const CreateGameScreen = () => {
         console.log(turn.operation)
     }
 
+    const isPlayerReady = players.filter(t => t.status === true).length != players.length
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Créer une partie</Text>
@@ -57,7 +60,7 @@ const CreateGameScreen = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.btnPrimary}>
-                <TouchableOpacity onPress={() => wsHandler.sendMessage(gameStart(gameId))}>
+                <TouchableOpacity disabled={!isPlayerReady} onPress={() => wsHandler.sendMessage(gameStart(gameId))}>
                     <Text>Démarrer la partie</Text>
                 </TouchableOpacity>
             </View>
