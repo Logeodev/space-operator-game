@@ -89,7 +89,7 @@ export interface OperationResult {
   resultSwitch: resultSwitch,
 }
 
-export const setOperatonResult = (resultButton : resultButton, resultSwitch : resultSwitch) : OperationResult => ({
+export const setOperationResult = (resultButton : resultButton, resultSwitch : resultSwitch) : OperationResult => ({
   resultButton : resultButton,
   resultSwitch: resultSwitch
 })

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
 import newShade from '../newShade';
-import { addResultButton, addResultsButton,  setOperatonResult, addResultSwitch} from '../../api/models';
+import { addResultButton, addResultsButton,  setOperationResult, addResultSwitch} from '../../api/models';
 import { setOperationGregory } from '../../reducers/round';
 import { useAppSelector, useAppDispatch } from '../../reducers/store';
 import { resultButton, resultSwitch } from '../../api/models';
