@@ -43,10 +43,10 @@ export const GamePage = () => {
             :
                 role === Role.Instructor?
                 <View style={style.operations}>
-                    <ScrollView horizontal={true} contentContainerStyle={{width:350, display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
+                    <ScrollView horizontal={true} contentContainerStyle={style.scroll}>
                     {
                         currentRound.operation&&
-                        displayOperationElements(currentRound.operation).map(e => <View style={{maxWidth:120}}>{e}</View>)
+                        displayOperationElements(currentRound.operation).map(e => <View style={{maxWidth:110}}>{e}</View>)
                     }
                     </ScrollView>
                 </View>
@@ -58,11 +58,14 @@ export const GamePage = () => {
 
 const style = StyleSheet.create({
     operations: {
-        display:'flex',
-        flexDirection:'row',
-        flexWrap:"wrap",
         width:'100%',
         maxHeight:'80%'
+    },
+    scroll: {
+        width:350, 
+        display:'flex', 
+        flexDirection:'row', 
+        flexWrap:'wrap'
     }
 })
 
