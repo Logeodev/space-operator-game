@@ -66,7 +66,7 @@ export class Round {
 
     getRoundTime() : number {
         const r1 = 20
-        const r20 = 10
+        const r20 = 3
         return ((-1)*(r20/Math.log(20))*Math.log(this.roundNumber)+r1)
     }
 
